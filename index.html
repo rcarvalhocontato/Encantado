@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Sítio Encantado — Controle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b3d24'/%3E%3Cpath d='M6 18c7 0 12-5 12-12-7 0-12 5-12 12Z' fill='none' stroke='%23f3d488' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M6 18c0-4 2.5-7.5 7-9.5' fill='none' stroke='%23f3d488' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
+<style>
+:root{
+  --forest:#0b3d24;
+  --forest-2:#124d2e;
+  --forest-deep:#062015;
+  --gold:#d99a2b;
+  --gold-light:#f3d488;
+  --wood:#6b3410;
+  --leaf:#3f9613;
+  --brick:#b33d26;
+  --cream:#faf6ec;
+  --paper:#ffffff;
+  --ink:#241f16;
+  --ink-soft:#6b6353;
+  --ink-faint:#a29a86;
+  --line:#e8e0cb;
+  --shadow:0 1px 2px rgba(36,31,22,.06), 0 6px 16px -8px rgba(36,31,22,.16);
+  --radius-s:10px;
+  --radius-m:16px;
+  --radius-l:22px;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --tab-h:64px;
+  --top-h:60px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+  color-scheme: light;
+}
+:root:not([data-theme="light"]) {
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) {
+    --cream:#12160f;
+    --paper:#1b2117;
+    --ink:#f1ecdd;
+    --ink-soft:#c3bba6;
+    --ink-faint:#8b8571;
+    --line:#2b3327;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px -8px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --cream:#12160f;
+  --paper:#1b2117;
+  --ink:#f1ecdd;
+  --ink-soft:#c3bba6;
+  --ink-faint:#8b8571;
+  --line:#2b3327;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px -8px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:15px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
+}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;margin:0;color:var(--ink);}
+button{font-family:inherit;}
+svg{display:block;width:1em;height:1em;flex:none;}
+input,select,textarea{font-family:inherit;font-size:16px;}
+.tabular{font-variant-numeric:tabular-nums;}
+a{color:inherit;}
+
+#app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;position:relative;background:var(--cream);}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:30;
+  height:var(--top-h);
+  display:flex;align-items:center;gap:10px;
+  padding:0 16px;
+  background:var(--forest);
+  color:#fbf7ea;
+  box-shadow:0 2px 10px rgba(6,32,21,.25);
+}
+.topbar .brand-mark{
+  width:34px;height:34px;border-radius:50%;overflow:hidden;flex:none;
+  border:1.5px solid rgba(251,247,234,.5);
+  background:#0e4a2b;
+  display:flex;align-items:center;justify-content:center;
+}
+.topbar .brand-mark img{width:100%;height:100%;object-fit:cover;}
+.topbar .titles{flex:1;min-width:0;}
+.topbar .titles h1{font-size:17px;color:#fbf7ea;line-height:1.1;letter-spacing:.2px;}
+.topbar .titles p{margin:1px 0 0;font-size:11.5px;color:#d9cf9f;font-family:var(--font-body);}
+.topbar .icon-btn{
+  width:36px;height:36px;border-radius:50%;border:none;background:rgba(251,247,234,.12);
+  color:#fbf7ea;display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer;
+  transition:background .15s;
+}
+.topbar .icon-btn:active{background:rgba(251,247,234,.28);}
+.topbar .icon-btn svg{width:19px;height:19px;}
+
+/* ---------- Main / views ---------- */
+#view-root{flex:1;padding:16px 16px calc(var(--tab-h) + var(--safe-b) + 28px);}
+.view-head{margin-bottom:14px;}
+.view-head h2{font-size:21px;}
+.view-head p.sub{margin:2px 0 0;color:var(--ink-soft);font-size:13px;}
+
+/* ---------- Tab bar ---------- */
+.tabbar{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:40;
+  width:100%;max-width:560px;
+  display:flex;
+  background:var(--paper);
+  border-top:1px solid var(--line);
+  padding-bottom:var(--safe-b);
+  box-shadow:0 -4px 18px -10px rgba(6,32,21,.25);
+}
+.tabbar button{
+  flex:1;background:none;border:none;padding:9px 2px 8px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:var(--ink-faint);cursor:pointer;height:var(--tab-h);
+}
+.tabbar button svg{width:22px;height:22px;}
+.tabbar button span{font-size:10.5px;font-weight:600;letter-spacing:.1px;}
+.tabbar button.active{color:var(--forest);}
+:root[data-theme="dark"] .tabbar button.active,
+:root:not([data-theme="light"]) .tabbar button.active{color:var(--gold-light);}
+@media (prefers-color-scheme:dark){.tabbar button.active{color:var(--gold-light);}}
+.tabbar button .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);margin-top:-1px;visibility:hidden;}
+.tabbar button.active .dot{visibility:visible;}
+
+/* ---------- Cards & sections ---------- */
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:16px;box-shadow:var(--shadow);margin-bottom:12px;
+}
+.section-title{font-size:15px;font-weight:600;margin:22px 0 10px;color:var(--ink);}
+.section-title:first-child{margin-top:0;}
+.muted{color:var(--ink-soft);}
+.hint{color:var(--ink-faint);font-size:12.5px;}
+
+/* KPI grid */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+.kpi{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:14px 14px 13px;box-shadow:var(--shadow);
+}
+.kpi .kpi-label{font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:4px;}
+.kpi .kpi-value{font-family:var(--font-display);font-size:21px;font-weight:600;line-height:1.15;}
+.kpi .kpi-value.pos{color:var(--forest);}
+:root[data-theme="dark"] .kpi .kpi-value.pos,
+:root:not([data-theme="light"]) .kpi .kpi-value.pos{color:#6fd39a;}
+@media (prefers-color-scheme:dark){.kpi .kpi-value.pos{color:#6fd39a;}}
+.kpi .kpi-value.neg{color:var(--brick);}
+.kpi .kpi-note{font-size:11.5px;color:var(--ink-faint);margin-top:3px;}
+.kpi.wide{grid-column:1/-1;}
+.kpi.hero{
+  background:linear-gradient(135deg,var(--forest),var(--forest-2));
+  border:none;color:#fbf7ea;
+}
+.kpi.hero .kpi-label{color:#cfe6d7;}
+.kpi.hero .kpi-value{color:#fbf7ea;font-size:26px;}
+.kpi.hero .kpi-note{color:#a9c9b4;}
+
+.chart-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 14px 8px;margin-bottom:12px;box-shadow:var(--shadow);}
+.chart-card h3{font-size:14.5px;font-weight:600;margin-bottom:2px;}
+.chart-card .chart-sub{font-size:12px;color:var(--ink-soft);margin-bottom:8px;}
+.chart-wrap{position:relative;width:100%;}
+.chart-wrap.h180{height:180px;}
+.chart-wrap.h200{height:200px;}
+.chart-wrap.h220{height:220px;}
+.chart-empty{
+  display:flex;align-items:center;justify-content:center;height:100%;min-height:120px;
+  color:var(--ink-faint);font-size:13px;text-align:center;padding:0 20px;
+}
+.chart-empty svg{width:30px;height:30px;margin:0 auto;}
+
+.filter-row{display:flex;gap:8px;margin-bottom:14px;}
+.filter-row select{flex:1;min-width:0;}
+
+.stat-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);}
+.stat-list .row{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--line);gap:10px;}
+.stat-list .row:last-child{border-bottom:none;}
+.stat-list .row .k{font-size:13.5px;color:var(--ink-soft);}
+.stat-list .row .v{font-size:13.5px;font-weight:600;text-align:right;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:none;border-radius:var(--radius-s);padding:12px 16px;font-size:14.5px;font-weight:600;
+  cursor:pointer;line-height:1;transition:transform .08s, opacity .15s;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--forest);color:#fbf7ea;}
+.btn-gold{background:var(--gold);color:#3a2606;}
+.btn-ghost{background:transparent;color:var(--forest);border:1.5px solid var(--line);}
+:root[data-theme="dark"] .btn-ghost,
+:root:not([data-theme="light"]) .btn-ghost{color:var(--gold-light);}
+@media (prefers-color-scheme:dark){.btn-ghost{color:var(--gold-light);}}
+.btn-danger{background:transparent;color:var(--brick);}
+.btn-block{width:100%;}
+.btn-sm{padding:8px 12px;font-size:13px;}
+.btn svg{width:16px;height:16px;}
+.fab-add{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--forest);color:#fbf7ea;border:none;border-radius:var(--radius-m);
+  padding:13px;font-size:14.5px;font-weight:600;cursor:pointer;margin-bottom:14px;box-shadow:var(--shadow);
+}
+.fab-add svg{width:18px;height:18px;}
+
+/* ---------- Forms ---------- */
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:var(--radius-s);
+  background:var(--cream);color:var(--ink);appearance:none;-webkit-appearance:none;
+}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b6353' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--gold);outline-offset:0;border-color:var(--gold);}
+.field textarea{resize:vertical;min-height:56px;}
+.field .readout{
+  width:100%;padding:11px 12px;border-radius:var(--radius-s);background:var(--gold-light);
+  color:#3a2606;font-weight:700;font-size:15px;
+}
+.field-row{display:flex;gap:10px;}
+.field-row .field{flex:1;}
+.form-actions{display:flex;gap:10px;margin-top:16px;}
+.form-actions .btn{flex:1;}
+
+/* ---------- Table / list of records ---------- */
+.record-list{display:flex;flex-direction:column;gap:8px;}
+.record{
+  display:flex;align-items:center;gap:10px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);
+  padding:11px 12px;cursor:pointer;
+}
+.record .swatch{width:6px;align-self:stretch;border-radius:4px;background:var(--leaf);flex:none;}
+.record .swatch.neg{background:var(--brick);}
+.record .swatch.exp{background:var(--wood);}
+.record .body{flex:1;min-width:0;}
+.record .l1{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.record .l2{font-size:12.5px;color:var(--ink-soft);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.record .amt{text-align:right;flex:none;}
+.record .amt .n{font-weight:700;font-size:14.5px;}
+.record .amt .n.neg{color:var(--brick);}
+.record .amt .d{font-size:11px;color:var(--ink-faint);}
+.empty-state{
+  text-align:center;padding:38px 20px;color:var(--ink-faint);
+}
+.empty-state svg{width:40px;height:40px;margin-bottom:10px;opacity:.6;}
+.empty-state p{margin:0;font-size:13.5px;}
+
+/* Group headers in lists */
+.list-group-label{font-size:12px;font-weight:700;color:var(--ink-faint);margin:16px 2px 7px;}
+.list-group-label:first-child{margin-top:0;}
+
+/* ---------- Resumo grid ---------- */
+.grid-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-m);background:var(--paper);box-shadow:var(--shadow);-webkit-overflow-scrolling:touch;}
+table.resumo{border-collapse:collapse;font-size:12.5px;white-space:nowrap;}
+table.resumo th,table.resumo td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--line);}
+table.resumo th{font-size:10.5px;color:var(--ink-soft);font-weight:700;background:var(--cream);position:sticky;top:0;}
+table.resumo td:first-child,table.resumo th:first-child{
+  position:sticky;left:0;background:var(--paper);text-align:left;font-weight:600;z-index:1;
+  box-shadow:1px 0 0 var(--line);
+}
+table.resumo th:first-child{background:var(--cream);z-index:2;}
+table.resumo tr.total-row td{font-weight:700;background:var(--cream);}
+table.resumo tr.total-row td:first-child{background:var(--cream);}
+table.resumo td.zero{color:var(--ink-faint);}
+
+/* ---------- Cadastros ---------- */
+.subtabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;}
+.subtabs button{
+  flex:none;border:1.5px solid var(--line);background:var(--paper);color:var(--ink-soft);
+  padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+}
+.subtabs button.active{background:var(--forest);border-color:var(--forest);color:#fbf7ea;}
+
+.simple-list{display:flex;flex-direction:column;gap:7px;}
+.simple-list .item{
+  display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius-s);padding:10px 12px;
+}
+.simple-list .item .name{flex:1;font-size:14px;font-weight:600;}
+.simple-list .item button{
+  background:none;border:none;color:var(--ink-faint);padding:4px;cursor:pointer;flex:none;
+  display:flex;align-items:center;
+}
+.simple-list .item button svg{width:17px;height:17px;}
+.simple-list .item button.del:active{color:var(--brick);}
+.add-inline{display:flex;gap:8px;margin-bottom:14px;}
+.add-inline input{flex:1;}
+
+.price-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);}
+.price-row:last-child{border-bottom:none;}
+.price-row .pname{flex:1;font-size:13.5px;}
+.price-row .pprice{width:108px;flex:none;}
+.price-row .pprice input{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--cream);text-align:right;color:var(--ink);}
+
+.accordion{border:1px solid var(--line);border-radius:var(--radius-m);background:var(--paper);overflow:hidden;margin-bottom:10px;box-shadow:var(--shadow);}
+.accordion summary{list-style:none;cursor:pointer;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:14px;}
+.accordion summary::-webkit-details-marker{display:none;}
+.accordion summary .chev{width:16px;height:16px;color:var(--ink-faint);transition:transform .18s;flex:none;}
+.accordion[open] summary .chev{transform:rotate(180deg);}
+.accordion .acc-body{padding:0 14px 14px;}
+.accordion .count-badge{font-size:11px;font-weight:700;color:var(--ink-faint);background:var(--cream);border-radius:999px;padding:2px 8px;margin-left:8px;}
+
+/* ---------- Modal / bottom sheet ---------- */
+.overlay{
+  position:fixed;inset:0;background:rgba(6,20,13,.5);z-index:90;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s;
+}
+.overlay.open{opacity:1;pointer-events:auto;}
+.sheet{
+  width:100%;max-width:560px;max-height:88vh;overflow-y:auto;
+  background:var(--paper);border-radius:22px 22px 0 0;
+  padding:8px 18px calc(22px + var(--safe-b));
+  transform:translateY(24px);transition:transform .2s;
+  box-shadow:0 -10px 40px rgba(6,20,13,.3);
+}
+.overlay.open .sheet{transform:translateY(0);}
+.sheet .grabber{width:38px;height:4px;background:var(--line);border-radius:4px;margin:8px auto 14px;}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.sheet-head h3{font-size:17px;}
+.sheet-head button{background:none;border:none;color:var(--ink-faint);padding:6px;cursor:pointer;}
+.sheet-head button svg{width:20px;height:20px;}
+.confirm-body{padding:6px 2px 4px;font-size:14px;color:var(--ink-soft);}
+.confirm-body strong{color:var(--ink);}
+
+/* ---------- Toast ---------- */
+#toast-root{position:fixed;left:50%;bottom:calc(var(--tab-h) + var(--safe-b) + 14px);transform:translateX(-50%);z-index:99;display:flex;flex-direction:column;gap:8px;align-items:center;width:100%;max-width:520px;padding:0 16px;pointer-events:none;}
+.toast{background:var(--forest-deep);color:#fbf7ea;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.3);opacity:0;transform:translateY(8px);transition:all .2s;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* ---------- Misc ---------- */
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--gold-light);color:#4a3208;}
+.divider{height:1px;background:var(--line);margin:16px 0;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.legend-row{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft);margin:3px 0;}
+.legend-row .sw{width:9px;height:9px;border-radius:3px;flex:none;}
+::-webkit-scrollbar{height:6px;width:6px;}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+.export-row{display:flex;gap:10px;margin-top:6px;}
+.export-row .btn{flex:1;}
+.about-card p{margin:0 0 8px;font-size:13px;color:var(--ink-soft);}
+.about-card p:last-child{margin-bottom:0;}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand-mark" id="brand-mark"></div>
+    <div class="titles">
+      <h1 id="topbar-title">Sítio Encantado</h1>
+      <p id="topbar-sub">Controle da propriedade</p>
+    </div>
+    <button class="icon-btn" id="settings-btn" aria-label="Cadastros" title="Cadastros"></button>
+  </header>
+
+  <main id="view-root"></main>
+
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+
+<div id="toast-root"></div>
+<div id="modal-root"></div>
+
+<script>
+/* =========================================================================
+   SÍTIO ENCANTADO — CONTROLE
+   App único (HTML+CSS+JS) que replica a planilha "Controle_Sítio_-_BASE.xlsm":
+   cadastros (clientes, produtos, preços por cliente, categorias de despesa),
+   lançamentos (entregas, devoluções, despesas), resumo diário filtrável e
+   um painel com indicadores e gráficos — espelhando as fórmulas e macros
+   originais da planilha.
+   ========================================================================= */
+
+/* ---------------------------- Ícones (SVG) ---------------------------- */
+const ICONS = {
+  home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>`,
+  box:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2 12 3.8 3 8.2l9 4.3 9-4.3Z"/><path d="M3 8.2v7.3L12 20l9-4.5V8.2"/><path d="M12 12.5V20"/></svg>`,
+  undo:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h10.5a5 5 0 0 1 0 10H11"/><path d="M8 5 4 9l4 4"/></svg>`,
+  wallet:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="13" rx="2.2"/><path d="M3 10.3h18"/><path d="M15.2 14.2h2.6"/><path d="M7 6.5V5.2A1.7 1.7 0 0 1 8.7 3.5h6.6A1.7 1.7 0 0 1 17 5.2v1.3"/></svg>`,
+  chart:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10.5"/><path d="M12 20V4"/><path d="M20 20v-7.5"/><path d="M2.5 20h19"/></svg>`,
+  gear:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.6v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1h-.2a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.6v-.2a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6h.1a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.2a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1Z"/></svg>`,
+  plus:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`,
+  pencil:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16.5 3.5 4 4L8 20H4v-4Z"/></svg>`,
+  trash:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/></svg>`,
+  x:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>`,
+  chev:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+  leaf:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c8 0 14-6 14-14-8 0-14 6-14 14Z"/><path d="M5 19c0-5 3-9 8-11"/></svg>`,
+  inbox:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13 6.5 5h11L20 13"/><path d="M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6"/><path d="M4 13h4.5a1 1 0 0 1 1 .8 2.5 2.5 0 0 0 5 0 1 1 0 0 1 1-.8H20"/></svg>`,
+  download:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/></svg>`,
+  upload:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 19h14"/></svg>`,
+  users:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.7 19c.8-3.4 3.2-5.2 6.3-5.2s5.5 1.8 6.3 5.2"/><circle cx="17.2" cy="8.6" r="2.3"/><path d="M16 13.9c2.5.2 4.3 1.9 5 4.8"/></svg>`,
+  seed:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4.5" ry="8" transform="rotate(30 12 12)"/><path d="M12 4v-1.5"/></svg>`,
+  tag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 3.5h5.8a1 1 0 0 1 1 1v5.8a1 1 0 0 1-.3.7l-8.5 8.5a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.4l8.5-8.5a1 1 0 0 1 .9-.1Z"/><circle cx="15.2" cy="8.8" r="1.3"/></svg>`,
+  coin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.3 15.3c0 1 1 1.7 2.7 1.7s2.7-.7 2.7-1.9c0-2.6-5.4-1.2-5.4-3.8 0-1.2 1.1-1.9 2.7-1.9s2.7.7 2.7 1.7"/></svg>`,
+};
+
+/* ---------------------------- Dados de referência ---------------------------- */
+const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const MONTHS_SHORT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+const DEFAULT_CLIENTS = ["RAMOS - MATRIZ","RAMOS - FILIAL","RAMOS - BOM JARDIM","RAMOS - STA. BÁRBARA","STO. EXPEDITO","IBRALÂNDIA","SABOR DA FRUTA","PEQUENOS CLIENTES","ERIVELTON"];
+const DEFAULT_PRODUCTS = ["Agrião","Alface Hidropon.","Alface Lisa","Almeirão","Cebola","Couve","Espinafre","Hortelã","Mostarda","Rúcula","Salsinha","Morango"];
+const DEFAULT_EXPENSE_CATEGORIES = {"Insumos e materia prima":["Sementes, mudas, mudas clonais","Fertilizantes e corretivos de solo","Produtos fitossanitários (defensivos, herbicidas, fungicidas)","Rações e suplementos animais","Embalagens","Outros"],"Energia e agua":["Luz elétrica","Gás","Água","Outros"],"Mao de obra":["Retirada do proprietário","Salários de funcionários","Encargos trabalhistas (INSS, FGTS, férias, 13º salário)","Benefícios e transporte de funcionários","Participação nos lucros ou comissões de funcionários","Contratações pontuais (pedreiro, eletricista, carpinteiro e etc)","Plano de saúde e odontológico","Insumos para café ou merenda dos funcionários","Outros"],"Equipamentos e veiculos":["Veículos (tratores, caminhões e etc)","Equipamentos gerais, itens, ferramentas e etc","Peças de reposição e manutenção preventiva/corretiva","Combustível (diesel, gasolina, óleo)","Seguro automotivo","Documentação","Pedágio e multas","Lavagem e limpeza","Outros"],"Estruturas e instalacoes":["Galpões, silos, currais, estufas","Cercas, irrigação, bebedouros e cochos","Materiais para obras internas ou reformas","Manutenção de estradas internas ou acesso a propriedades","Outros"],"Custos administrativos e gerais":["Contabilidade e assessoria jurídica","Telefonia, internet, softwares","Consultorias pontuais ou serviços técnicos especializados","Veterinário e outros profissionais prestadores de serviços","Materiais de escritório","Fretes e entregas de produtos","Propaganda, feiras e exposições","Embalagens, etiquetas e rotulagem","Outros"],"Impostos e taxas":["Impostos municipais, estaduais e federais","Licenças e registros legais","Multas e penalidades","Outros"],"Outros nao informados":["Outros"]};
+
+const STORAGE_KEY = 'sitioEncantadoData_v1';
+const CHART_COLORS = ['#0b3d24','#d99a2b','#6b3410','#3f9613','#b33d26'];
+
+/* ---------------------------- Estado ---------------------------- */
+let state = null;
+
+function seedState(){
+  return {
+    clients: DEFAULT_CLIENTS.slice(),
+    products: DEFAULT_PRODUCTS.slice(),
+    prices: {},
+    expenseCategories: JSON.parse(JSON.stringify(DEFAULT_EXPENSE_CATEGORIES)),
+    sales: [],
+    returns: [],
+    expenses: [],
+  };
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(parsed && typeof parsed==='object'){
+        return Object.assign(seedState(), parsed);
+      }
+    }
+  }catch(e){ console.warn('Falha ao carregar dados salvos', e); }
+  return seedState();
+}
+
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.warn('Falha ao salvar dados', e); toast('Não foi possível salvar (armazenamento cheio?)'); }
+}
+
+/* ---------------------------- Utilidades ---------------------------- */
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+function num(v){ const n=parseFloat(v); return isNaN(n)?0:n; }
+function round2(n){ return Math.round((n+Number.EPSILON)*100)/100; }
+function pad(n){ return String(n).padStart(2,'0'); }
+function todayStr(){ const d=new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function todayPeriod(){ const d=new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1); }
+function parseDateStr(s){ return new Date(s+'T00:00:00'); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+function fmtBRL(n){
+  n = num(n);
+  const neg = n < -0.004;
+  const abs = Math.abs(n);
+  return (neg?'-':'')+'R$\u00A0'+abs.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function fmtQty(n){ n=num(n); return n.toLocaleString('pt-BR',{maximumFractionDigits:2}); }
+function fmtPct(n){ if(n==null||isNaN(n)) return '—'; return (n*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%'; }
+function formatDateBR(dateStr){ if(!dateStr) return ''; const [y,m,d]=dateStr.split('-'); return `${d}/${m}/${y}`; }
+function monthLabel(monthIndex, year){ return `${MONTHS[monthIndex]}/${year}`; }
+
+function groupSum(pairs){
+  const out = {};
+  for(const {k,v} of pairs){ if(!k) continue; out[k] = (out[k]||0) + v; }
+  return out;
+}
+function topEntries(totals, n){
+  const arr = Object.entries(totals).filter(([k,v])=>Math.abs(v)>1e-9).sort((a,b)=>b[1]-a[1]);
+  return n ? arr.slice(0,n) : arr;
+}
+function sum(arr, fn){ return arr.reduce((a,x)=>a+fn(x),0); }
+
+/* ---------------------------- Toast ---------------------------- */
+function toast(msg){
+  const root = document.getElementById('toast-root');
+  const el = document.createElement('div');
+  el.className='toast'; el.textContent=msg;
+  root.appendChild(el);
+  requestAnimationFrame(()=>el.classList.add('show'));
+  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),250); }, 2400);
+}
+
+/* ---------------------------- Modal / bottom sheet ---------------------------- */
+function openSheet(html){
+  const root = document.getElementById('modal-root');
+  root.innerHTML = `<div class="overlay" id="overlay"><div class="sheet" role="dialog">${html}</div></div>`;
+  const overlay = document.getElementById('overlay');
+  requestAnimationFrame(()=>overlay.classList.add('open'));
+  overlay.addEventListener('click', (e)=>{ if(e.target.id==='overlay') closeSheet(); });
+}
+function closeSheet(){
+  const overlay = document.getElementById('overlay');
+  if(!overlay) return;
+  overlay.classList.remove('open');
+  setTimeout(()=>{ const r=document.getElementById('modal-root'); if(r) r.innerHTML=''; }, 200);
+}
+function confirmDialog(title, message, confirmLabel, onConfirm){
+  openSheet(`
+    <div class="grabber"></div>
+    <div class="sheet-head"><h3>${esc(title)}</h3><button onclick="closeSheet()" aria-label="Fechar">${ICONS.x}</button></div>
+    <div class="confirm-body">${message}</div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeSheet()">Cancelar</button>
+      <button class="btn" style="background:var(--brick);color:#fff;" id="confirm-yes-btn">${esc(confirmLabel||'Excluir')}</button>
+    </div>
+  `);
+  document.getElementById('confirm-yes-btn').onclick = ()=>{ closeSheet(); onConfirm(); };
+}
+
+/* ---------------------------- Preços (matriz cliente x produto) ---------------------------- */
+function getPrice(client, product){
+  if(!client || !product) return 0;
+  return (state.prices[client] && state.prices[client][product]) || 0;
+}
+function setPrice(client, product, value){
+  if(!state.prices[client]) state.prices[client] = {};
+  state.prices[client][product] = round2(num(value));
+  saveState();
+}
+
+/* =========================================================================
+   LÓGICA DE NEGÓCIO — espelha as fórmulas/macros da planilha original:
+   - ENTR: total = quantidade × valor unitário (preço vindo da matriz)
+   - DEVOL: total = quantidade × valor unitário × -1
+   - DESPES: total = valor informado
+   - RECEITA (mês) = soma dos totais de ENTR + DEVOL no período
+   - DESPESA (mês) = soma dos totais de DESPES no período
+   - LUCRO/PREJUÍZO = RECEITA − DESPESA ; LUCRATIVIDADE = LUCRO / RECEITA
+   - PERDA = DEVOLVIDO(qtd) / ENTREGUE(qtd)
+   ========================================================================= */
+
+function yearsWithData(){
+  const ys = new Set([new Date().getFullYear()]);
+  state.sales.forEach(s=>ys.add(s.year));
+  state.returns.forEach(r=>ys.add(r.year));
+  state.expenses.forEach(e=>ys.add(e.year));
+  return Array.from(ys).sort((a,b)=>b-a);
+}
+
+function computeKPIs(year){
+  const sales = state.sales.filter(s=>s.year===year);
+  const returns = state.returns.filter(r=>r.year===year);
+  const expenses = state.expenses.filter(e=>e.year===year);
+
+  const entregue = sum(sales, s=>num(s.qty));
+  const devolvido = sum(returns, r=>num(r.qty));
+  const receitaEntregas = sum(sales, s=>s.total);
+  const receitaDevolucoes = sum(returns, r=>r.total);
+  const receita = round2(receitaEntregas + receitaDevolucoes);
+  const despesa = round2(sum(expenses, e=>num(e.value)));
+  const lucro = round2(receita - despesa);
+  const lucratividade = Math.abs(receita) > 1e-9 ? lucro/receita : null;
+  const perda = entregue > 1e-9 ? devolvido/entregue : null;
+
+  const clientTotals = groupSum([
+    ...sales.map(s=>({k:s.client, v:s.total})),
+    ...returns.map(r=>({k:r.client, v:r.total})),
+  ]);
+  const productTotals = groupSum([
+    ...sales.map(s=>({k:s.product, v:s.total})),
+    ...returns.map(r=>({k:r.product, v:r.total})),
+  ]);
+  const groupTotals = groupSum(expenses.map(e=>({k:e.group, v:num(e.value)})));
+  const returnedQtyByProduct = groupSum(returns.map(r=>({k:r.product, v:num(r.qty)})));
+  const subgroupTotals = groupSum(expenses.map(e=>({k:e.subgroup||e.group, v:num(e.value)})));
+
+  const bestClient = topEntries(clientTotals,1)[0] || null;
+  const bestProduct = topEntries(productTotals,1)[0] || null;
+  const biggestGroup = topEntries(groupTotals,1)[0] || null;
+
+  return {
+    year, entregue, devolvido, receita, despesa, lucro, lucratividade, perda,
+    bestClient, bestProduct, biggestGroup,
+    clientTotals, productTotals, groupTotals, returnedQtyByProduct, subgroupTotals,
+    hasAny: sales.length+returns.length+expenses.length > 0,
+  };
+}
+
+function computeMonthlyTrend(year){
+  return MONTHS.map((name, idx)=>{
+    const sales = state.sales.filter(s=>s.year===year && s.monthIndex===idx);
+    const returns = state.returns.filter(r=>r.year===year && r.monthIndex===idx);
+    const expenses = state.expenses.filter(e=>e.year===year && e.monthIndex===idx);
+    const entregue = sum(sales, s=>num(s.qty));
+    const devolvido = sum(returns, r=>num(r.qty));
+    const receita = round2(sum(sales,s=>s.total) + sum(returns,r=>r.total));
+    const despesa = round2(sum(expenses, e=>num(e.value)));
+    return {monthIndex:idx, name, entregue, devolvido, receita, despesa, lucro:round2(receita-despesa)};
+  });
+}
+
+function computeDailyTrend(year, monthIndex){
+  const sales = state.sales.filter(s=>s.year===year && s.monthIndex===monthIndex);
+  const byDay = groupSum(sales.map(s=>({k:String(s.day), v:num(s.qty)})));
+  const daysInMonth = new Date(year, monthIndex+1, 0).getDate();
+  const days = [];
+  for(let d=1; d<=daysInMonth; d++) days.push({day:d, entregue: byDay[String(d)]||0});
+  return days;
+}
+
+function computeResumo(year, monthIndex, client){
+  const sales = state.sales.filter(s=>s.year===year && s.monthIndex===monthIndex && (client==='TODOS'||s.client===client));
+  const returns = state.returns.filter(r=>r.year===year && r.monthIndex===monthIndex && (client==='TODOS'||r.client===client));
+  const daysInMonth = new Date(year, monthIndex+1, 0).getDate();
+
+  const grid = {}; // grid[day][product] = qty
+  for(const s of sales){
+    if(!grid[s.day]) grid[s.day] = {};
+    grid[s.day][s.product] = (grid[s.day][s.product]||0) + num(s.qty);
+  }
+  const entregueByProduct = groupSum(sales.map(s=>({k:s.product, v:num(s.qty)})));
+  const devolvidoByProduct = groupSum(returns.map(r=>({k:r.product, v:num(r.qty)})));
+  const vendaByProduct = {};
+  const unitPriceByProduct = {};
+  const totalByProduct = {};
+  const singleClient = client !== 'TODOS';
+  for(const p of state.products){
+    const ent = entregueByProduct[p]||0;
+    const dev = devolvidoByProduct[p]||0;
+    const venda = round2(ent-dev);
+    vendaByProduct[p] = venda;
+    if(singleClient){
+      const price = getPrice(client, p);
+      unitPriceByProduct[p] = price;
+      totalByProduct[p] = round2(venda*price);
+    }
+  }
+  return {daysInMonth, grid, entregueByProduct, devolvidoByProduct, vendaByProduct, unitPriceByProduct, totalByProduct, singleClient,
+    totalEntregue: sum(Object.values(entregueByProduct),v=>v),
+    totalDevolvido: sum(Object.values(devolvidoByProduct),v=>v),
+    totalVenda: sum(Object.values(vendaByProduct),v=>v),
+    totalRS: singleClient ? sum(Object.values(totalByProduct),v=>v) : null,
+  };
+}
+
+/* =========================================================================
+   NAVEGAÇÃO
+   ========================================================================= */
+let currentTab = 'painel';
+let dashboardYear = new Date().getFullYear();
+let resumoFilter = { year:new Date().getFullYear(), monthIndex:new Date().getMonth(), client:'TODOS' };
+let cadastroSubtab = 'clientes';
+let precosClient = null;
+let expandedCategoryIndex = null;
+let activeCharts = [];
+
+const TABS = [
+  {key:'painel', label:'Painel', icon:'home', sub:'Indicadores e gráficos da propriedade'},
+  {key:'entregas', label:'Entregas', icon:'box', sub:'Registro de entregas aos clientes'},
+  {key:'devolucoes', label:'Devoluções', icon:'undo', sub:'Produtos devolvidos pelos clientes'},
+  {key:'despesas', label:'Despesas', icon:'wallet', sub:'Custos e gastos da propriedade'},
+  {key:'resumo', label:'Resumo', icon:'chart', sub:'Entregas por dia, cliente e produto'},
+];
+
+function renderTabbar(){
+  const bar = document.getElementById('tabbar');
+  bar.innerHTML = TABS.map(t=>`
+    <button class="${t.key===currentTab?'active':''}" onclick="switchTab('${t.key}')">
+      ${ICONS[t.icon]}
+      <span>${t.label}</span>
+      <span class="dot"></span>
+    </button>
+  `).join('');
+}
+function switchTab(key){
+  currentTab = key;
+  renderTabbar();
+  renderCurrentView();
+  document.getElementById('view-root').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+function openCadastros(){
+  currentTab = 'cadastros';
+  renderTabbar();
+  renderCurrentView();
+  window.scrollTo(0,0);
+}
+function renderCurrentView(){
+  const root = document.getElementById('view-root');
+  const tabInfo = TABS.find(t=>t.key===currentTab);
+  document.getElementById('topbar-sub').textContent = tabInfo ? tabInfo.sub : 'Cadastros e preferências';
+  destroyCharts();
+  if(currentTab==='painel') renderPainel(root);
+  else if(currentTab==='resumo') renderResumo(root);
+  else if(currentTab==='cadastros') renderCadastros(root);
+  else if(SCREENS[currentTab]) renderTransactionScreen(root, currentTab);
+}
+function destroyCharts(){
+  activeCharts.forEach(c=>{ try{ c.destroy(); }catch(e){} });
+  activeCharts = [];
+}
+
+/* =========================================================================
+   TELAS GENÉRICAS DE LANÇAMENTO (Entregas / Devoluções / Despesas)
+   ========================================================================= */
+const SCREENS = {
+  entregas: {
+    key:'sales', singular:'entrega', plural:'entregas', icon:'box',
+    title:'Entregas', addLabel:'Nova entrega',
+    emptyMsg:'Nenhuma entrega registrada ainda.',
+    fields:[
+      {name:'date', label:'Data', type:'date', required:true, default:()=>todayStr()},
+      {name:'client', label:'Cliente', type:'select', options:()=>state.clients, required:true, placeholder:'Selecione o cliente'},
+      {name:'product', label:'Produto', type:'select', options:()=>state.products, required:true, placeholder:'Selecione o produto'},
+      {name:'qty', label:'Quantidade entregue', type:'number', step:'0.01', min:'0', required:true},
+      {name:'unitPrice', label:'Valor unitário (R$)', type:'number', step:'0.01', min:'0', required:true},
+    ],
+    onFieldChange(data, name){
+      if(name==='client' || name==='product'){
+        if(data.client && data.product) data.unitPrice = getPrice(data.client, data.product) || data.unitPrice || 0;
+      }
+    },
+    computeDerived(data){
+      const d = parseDateStr(data.date);
+      data.year = d.getFullYear(); data.monthIndex = d.getMonth(); data.day = d.getDate();
+      data.qty = num(data.qty); data.unitPrice = num(data.unitPrice);
+      data.total = round2(data.qty*data.unitPrice);
+    },
+    rowGroupKey(r){ return monthLabel(r.monthIndex, r.year); },
+    rowRender(r){ return { l1:r.client, l2:`${r.product} · ${fmtQty(r.qty)} · ${formatDateBR(r.date)}`, amount:r.total, neg:false, swatch:'' }; },
+  },
+  devolucoes: {
+    key:'returns', singular:'devolução', plural:'devoluções', icon:'undo',
+    title:'Devoluções', addLabel:'Nova devolução',
+    emptyMsg:'Nenhuma devolução registrada ainda.',
+    fields:[
+      {name:'period', label:'Mês', type:'month', required:true, default:()=>todayPeriod()},
+      {name:'client', label:'Cliente', type:'select', options:()=>state.clients, required:true, placeholder:'Selecione o cliente'},
+      {name:'product', label:'Produto', type:'select', options:()=>state.products, required:true, placeholder:'Selecione o produto'},
+      {name:'qty', label:'Quantidade devolvida', type:'number', step:'0.01', min:'0', required:true},
+      {name:'unitPrice', label:'Valor unitário (R$)', type:'number', step:'0.01', min:'0', required:true},
+    ],
+    onFieldChange(data, name){
+      if(name==='client' || name==='product'){
+        if(data.client && data.product) data.unitPrice = getPrice(data.client, data.product) || data.unitPrice || 0;
+      }
+    },
+    computeDerived(data){
+      const [y,m] = data.period.split('-').map(Number);
+      data.year=y; data.monthIndex=m-1;
+      data.qty = num(data.qty); data.unitPrice = num(data.unitPrice);
+      data.total = round2(data.qty*data.unitPrice*-1);
+    },
+    rowGroupKey(r){ return monthLabel(r.monthIndex, r.year); },
+    rowRender(r){ return { l1:r.client, l2:`${r.product} · ${fmtQty(r.qty)} devolvido(s)`, amount:r.total, neg:true, swatch:'neg' }; },
+  },
+  despesas: {
+    key:'expenses', singular:'despesa', plural:'despesas', icon:'wallet',
+    title:'Despesas', addLabel:'Nova despesa',
+    emptyMsg:'Nenhuma despesa registrada ainda.',
+    fields:[
+      {name:'period', label:'Mês', type:'month', required:true, default:()=>todayPeriod()},
+      {name:'group', label:'Categoria', type:'select', options:()=>Object.keys(state.expenseCategories), required:true, placeholder:'Selecione a categoria'},
+      {name:'subgroup', label:'Subcategoria', type:'select', options:(data)=> data.group ? (state.expenseCategories[data.group]||[]) : [], required:true, placeholder:'Selecione a subcategoria', disabledIf:(data)=>!data.group},
+      {name:'note', label:'Observação (opcional)', type:'text', required:false},
+      {name:'value', label:'Valor (R$)', type:'number', step:'0.01', min:'0', required:true},
+    ],
+    onFieldChange(data, name){ if(name==='group'){ data.subgroup=''; } },
+    computeDerived(data){
+      const [y,m] = data.period.split('-').map(Number);
+      data.year=y; data.monthIndex=m-1;
+      data.value = round2(num(data.value));
+    },
+    rowGroupKey(r){ return monthLabel(r.monthIndex, r.year); },
+    rowRender(r){ return { l1:r.subgroup||r.group, l2:`${r.group}${r.note?(' · '+r.note):''}`, amount:-Math.abs(r.value), neg:true, swatch:'exp' }; },
+  },
+};
+
+const PAGE_SIZE = 60;
+let visibleCounts = {};
+
+function renderTransactionScreen(root, screenKey){
+  const cfg = SCREENS[screenKey];
+  const allRecords = state[cfg.key].slice().sort((a,b)=>{
+    if(a.year!==b.year) return b.year-a.year;
+    if(a.monthIndex!==b.monthIndex) return b.monthIndex-a.monthIndex;
+    if((a.day||0)!==(b.day||0)) return (b.day||0)-(a.day||0);
+    return 0;
+  });
+  if(visibleCounts[screenKey]==null) visibleCounts[screenKey] = PAGE_SIZE;
+  const visibleCount = visibleCounts[screenKey];
+  const records = allRecords.slice(0, visibleCount);
+  const remaining = allRecords.length - records.length;
+
+  let listHTML;
+  if(allRecords.length===0){
+    listHTML = `<div class="empty-state">${ICONS.inbox}<p>${esc(cfg.emptyMsg)}</p></div>`;
+  }else{
+    let lastGroup = null;
+    const rows = [];
+    for(const r of records){
+      const g = cfg.rowGroupKey(r);
+      if(g!==lastGroup){ rows.push(`<div class="list-group-label">${esc(g)}</div>`); lastGroup = g; }
+      const rr = cfg.rowRender(r);
+      rows.push(`
+        <div class="record" onclick="openTransactionForm('${screenKey}','${r.id}')">
+          <div class="swatch ${rr.swatch}"></div>
+          <div class="body">
+            <div class="l1">${esc(rr.l1)}</div>
+            <div class="l2">${esc(rr.l2)}</div>
+          </div>
+          <div class="amt"><div class="n ${rr.neg?'neg':''}">${fmtBRL(rr.amount)}</div></div>
+        </div>
+      `);
+    }
+    listHTML = `<div class="record-list">${rows.join('')}</div>`;
+    if(remaining>0){
+      listHTML += `<button class="btn btn-ghost btn-block" style="margin-top:12px;" onclick="loadMoreTransactions('${screenKey}')">Carregar mais (${remaining} restante${remaining===1?'':'s'})</button>`;
+    }
+  }
+
+  root.innerHTML = `
+    <div class="view-head">
+      <h2>${esc(cfg.title)}</h2>
+      <p class="sub">${allRecords.length} ${allRecords.length===1?cfg.singular:cfg.plural} registrada${allRecords.length===1?'':'s'}</p>
+    </div>
+    <button class="fab-add" onclick="openTransactionForm('${screenKey}')">${ICONS.plus}${esc(cfg.addLabel)}</button>
+    ${listHTML}
+  `;
+}
+
+function loadMoreTransactions(screenKey){
+  visibleCounts[screenKey] = (visibleCounts[screenKey]||PAGE_SIZE) + PAGE_SIZE;
+  renderCurrentView();
+}
+
+let formState = {}; // dados do formulário atualmente aberto
+let formScreenKey = null;
+let formEditId = null;
+
+function openTransactionForm(screenKey, editId){
+  const cfg = SCREENS[screenKey];
+  formScreenKey = screenKey;
+  formEditId = editId || null;
+  if(editId){
+    const rec = state[cfg.key].find(r=>r.id===editId);
+    formState = Object.assign({}, rec);
+  }else{
+    formState = {};
+    cfg.fields.forEach(f=>{ if(f.default) formState[f.name] = f.default(); });
+  }
+  if(cfg.fields.some(f=>state.clients.length===0 && f.name==='client')){
+    toast('Cadastre ao menos um cliente antes de lançar.'); return;
+  }
+  if(cfg.fields.some(f=>state.products.length===0 && f.name==='product')){
+    toast('Cadastre ao menos um produto antes de lançar.'); return;
+  }
+  openSheet(buildTransactionFormHTML(screenKey));
+  wireTransactionForm(screenKey);
+}
+
+function buildTransactionFormHTML(screenKey){
+  const cfg = SCREENS[screenKey];
+  const isEdit = !!formEditId;
+  const fieldsHTML = cfg.fields.map(f=>fieldHTML(f, formState)).join('');
+  return `
+    <div class="grabber"></div>
+    <div class="sheet-head">
+      <h3>${isEdit?'Editar':esc(cfg.addLabel)}</h3>
+      <button onclick="closeSheet()" aria-label="Fechar">${ICONS.x}</button>
+    </div>
+    <form id="txn-form">${fieldsHTML}</form>
+    <div class="form-actions">
+      ${isEdit?`<button type="button" class="btn btn-danger" style="flex:0 0 auto;" onclick="deleteTransactionRecord('${screenKey}','${formEditId}')" aria-label="Excluir">${ICONS.trash}</button>`:''}
+      <button type="button" class="btn btn-primary btn-block" onclick="submitTransactionForm('${screenKey}')">Salvar</button>
+    </div>
+  `;
+}
+
+function fieldHTML(f, data){
+  const value = data[f.name];
+  if(f.type==='select'){
+    const opts = typeof f.options==='function' ? f.options(data) : f.options;
+    const disabled = f.disabledIf && f.disabledIf(data);
+    return `
+      <div class="field">
+        <label>${esc(f.label)}</label>
+        <select name="${f.name}" ${f.required?'required':''} ${disabled?'disabled':''} onchange="onTxnFieldChange('${f.name}', this.value)">
+          <option value="" ${!value?'selected':''} disabled>${esc(f.placeholder||'Selecione')}</option>
+          ${opts.map(o=>`<option value="${esc(o)}" ${value===o?'selected':''}>${esc(o)}</option>`).join('')}
+        </select>
+      </div>`;
+  }
+  if(f.type==='date' || f.type==='month'){
+    return `
+      <div class="field">
+        <label>${esc(f.label)}</label>
+        <input type="${f.type}" name="${f.name}" value="${esc(value||'')}" ${f.required?'required':''} onchange="onTxnFieldChange('${f.name}', this.value)">
+      </div>`;
+  }
+  if(f.type==='number'){
+    return `
+      <div class="field">
+        <label>${esc(f.label)}</label>
+        <input type="number" inputmode="decimal" name="${f.name}" value="${value!=null?value:''}" step="${f.step||'1'}" ${f.min!=null?`min="${f.min}"`:''} ${f.required?'required':''}>
+      </div>`;
+  }
+  return `
+    <div class="field">
+      <label>${esc(f.label)}</label>
+      <input type="text" name="${f.name}" value="${esc(value||'')}" ${f.required?'required':''}>
+    </div>`;
+}
+
+function readFormValues(){
+  const form = document.getElementById('txn-form');
+  const out = Object.assign({}, formState);
+  Array.from(form.elements).forEach(el=>{
+    if(!el.name) return;
+    out[el.name] = el.value;
+  });
+  return out;
+}
+
+function onTxnFieldChange(name, value){
+  formState = readFormValues();
+  formState[name] = value;
+  const cfg = SCREENS[formScreenKey];
+  if(cfg.onFieldChange) cfg.onFieldChange(formState, name);
+  const sheet = document.querySelector('.sheet');
+  const scrollPos = sheet ? sheet.scrollTop : 0;
+  openSheetInPlace(buildTransactionFormHTML(formScreenKey));
+  wireTransactionForm(formScreenKey);
+  if(sheet){ const s2=document.querySelector('.sheet'); if(s2) s2.scrollTop = scrollPos; }
+}
+function openSheetInPlace(html){
+  const sheetEl = document.querySelector('.sheet');
+  if(sheetEl){ sheetEl.innerHTML = html; }
+  else { openSheet(html); }
+}
+function wireTransactionForm(screenKey){ /* onchange attrs já conectados via HTML */ }
+
+function submitTransactionForm(screenKey){
+  const cfg = SCREENS[screenKey];
+  const data = readFormValues();
+  for(const f of cfg.fields){
+    if(f.required && (data[f.name]===undefined || data[f.name]===null || data[f.name]==='')){
+      toast(`Preencha o campo "${f.label}".`); return;
+    }
+  }
+  cfg.computeDerived(data);
+  if(formEditId){
+    const idx = state[cfg.key].findIndex(r=>r.id===formEditId);
+    if(idx>-1){ data.id = formEditId; state[cfg.key][idx] = data; }
+  }else{
+    data.id = uid();
+    state[cfg.key].push(data);
+  }
+  saveState();
+  closeSheet();
+  renderCurrentView();
+  toast(formEditId ? 'Registro atualizado.' : 'Registro salvo.');
+}
+
+function deleteTransactionRecord(screenKey, id){
+  const cfg = SCREENS[screenKey];
+  closeSheet();
+  setTimeout(()=>{
+    confirmDialog(`Excluir ${cfg.singular}`, `Tem certeza que deseja excluir esta ${cfg.singular}? Essa ação não pode ser desfeita.`, 'Excluir', ()=>{
+      state[cfg.key] = state[cfg.key].filter(r=>r.id!==id);
+      saveState();
+      renderCurrentView();
+      toast('Registro excluído.');
+    });
+  }, 210);
+}
+
+/* =========================================================================
+   PAINEL (Dashboard) — indicadores e gráficos
+   ========================================================================= */
+function renderPainel(root){
+  const years = yearsWithData();
+  if(!years.includes(dashboardYear)) dashboardYear = years[0];
+  const k = computeKPIs(dashboardYear);
+  const trend = computeMonthlyTrend(dashboardYear);
+  const now = new Date();
+  const dailyYear = now.getFullYear(), dailyMonth = now.getMonth();
+  const daily = computeDailyTrend(dailyYear, dailyMonth);
+  const hasDaily = daily.some(d=>d.entregue>0);
+
+  root.innerHTML = `
+    <div class="view-head">
+      <h2>Painel</h2>
+      <p class="sub">Visão geral da propriedade</p>
+    </div>
+    <div class="filter-row">
+      <select id="dashboard-year-select" onchange="dashboardYear=parseInt(this.value); renderCurrentView();">
+        ${years.map(y=>`<option value="${y}" ${y===dashboardYear?'selected':''}>${y}</option>`).join('')}
+      </select>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi hero wide">
+        <div class="kpi-label">Lucro / Prejuízo em ${dashboardYear}</div>
+        <div class="kpi-value">${fmtBRL(k.lucro)}</div>
+        <div class="kpi-note">Lucratividade: ${fmtPct(k.lucratividade)}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Receita</div>
+        <div class="kpi-value pos">${fmtBRL(k.receita)}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Despesa</div>
+        <div class="kpi-value neg">${fmtBRL(k.despesa)}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Entregue</div>
+        <div class="kpi-value">${fmtQty(k.entregue)}</div>
+        <div class="kpi-note">unidades no ano</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Devolvido</div>
+        <div class="kpi-value">${fmtQty(k.devolvido)}</div>
+        <div class="kpi-note">taxa de perda: ${fmtPct(k.perda)}</div>
+      </div>
+    </div>
+
+    <div class="stat-list" style="margin:12px 0 20px;">
+      <div class="row"><span class="k">Melhor cliente</span><span class="v">${k.bestClient?esc(k.bestClient[0]):'—'}</span></div>
+      <div class="row"><span class="k">Melhor produto</span><span class="v">${k.bestProduct?esc(k.bestProduct[0]):'—'}</span></div>
+      <div class="row"><span class="k">Maior categoria de despesa</span><span class="v">${k.biggestGroup?esc(k.biggestGroup[0]):'—'}</span></div>
+    </div>
+
+    <div class="section-title">Entregue × Devolvido</div>
+    <div class="chart-card">
+      <h3>Quantidade por mês</h3>
+      <p class="chart-sub">${dashboardYear}</p>
+      <div class="chart-wrap h200">${trend.some(t=>t.entregue||t.devolvido) ? '<canvas id="chart-ed"></canvas>' : emptyChartHTML()}</div>
+    </div>
+
+    <div class="section-title">Receita × Despesa</div>
+    <div class="chart-card">
+      <h3>Valores por mês (R$)</h3>
+      <p class="chart-sub">${dashboardYear}</p>
+      <div class="chart-wrap h200">${trend.some(t=>t.receita||t.despesa) ? '<canvas id="chart-rd"></canvas>' : emptyChartHTML()}</div>
+    </div>
+
+    <div class="section-title">Entregas por dia</div>
+    <div class="chart-card">
+      <h3>${MONTHS[dailyMonth]}/${dailyYear}</h3>
+      <p class="chart-sub">Mês atual</p>
+      <div class="chart-wrap h180">${hasDaily ? '<canvas id="chart-daily"></canvas>' : emptyChartHTML()}</div>
+    </div>
+
+    <div class="section-title">Top 5 clientes</div>
+    <div class="chart-card">
+      <h3>Por valor (R$)</h3><p class="chart-sub">${dashboardYear}</p>
+      <div class="chart-wrap h220">${topEntries(k.clientTotals,5).length ? '<canvas id="chart-clients"></canvas>' : emptyChartHTML()}</div>
+    </div>
+
+    <div class="section-title">Top 5 produtos</div>
+    <div class="chart-card">
+      <h3>Por valor (R$)</h3><p class="chart-sub">${dashboardYear}</p>
+      <div class="chart-wrap h220">${topEntries(k.productTotals,5).length ? '<canvas id="chart-products"></canvas>' : emptyChartHTML()}</div>
+    </div>
+
+    <div class="section-title">Top 5 produtos mais devolvidos</div>
+    <div class="chart-card">
+      <h3>Por quantidade</h3><p class="chart-sub">${dashboardYear}</p>
+      <div class="chart-wrap h220">${topEntries(k.returnedQtyByProduct,5).length ? '<canvas id="chart-returned"></canvas>' : emptyChartHTML()}</div>
+    </div>
+
+    <div class="section-title">Despesas por grupo</div>
+    <div class="chart-card">
+      <h3>Total por categoria (R$)</h3><p class="chart-sub">${dashboardYear}</p>
+      <div class="chart-wrap h220">${topEntries(k.groupTotals).length ? '<canvas id="chart-groups"></canvas>' : emptyChartHTML()}</div>
+    </div>
+
+    <div class="section-title">Top 5 despesas específicas</div>
+    <div class="chart-card">
+      <h3>Por subcategoria (R$)</h3><p class="chart-sub">${dashboardYear}</p>
+      <div class="chart-wrap h220">${topEntries(k.subgroupTotals,5).length ? '<canvas id="chart-subexp"></canvas>' : emptyChartHTML()}</div>
+    </div>
+  `;
+
+  buildDashboardCharts(trend, daily, hasDaily, k);
+}
+
+function emptyChartHTML(){
+  return `<div class="chart-empty"><div><div style="margin-bottom:8px;display:flex;justify-content:center;">${ICONS.inbox}</div>Sem dados ainda</div></div>`;
+}
+
+function baseChartFont(){
+  return { family:"'Inter',sans-serif", size:11 };
+}
+function chartTextColor(){
+  return getComputedStyle(document.body).getPropertyValue('--ink-soft').trim() || '#6b6353';
+}
+function chartGridColor(){
+  return getComputedStyle(document.body).getPropertyValue('--line').trim() || '#e8e0cb';
+}
+
+function buildDashboardCharts(trend, daily, hasDaily, k){
+  if(typeof Chart==='undefined') return;
+  Chart.defaults.font = baseChartFont();
+  Chart.defaults.color = chartTextColor();
+
+  if(trend.some(t=>t.entregue||t.devolvido)){
+    const ctx = document.getElementById('chart-ed');
+    if(ctx) activeCharts.push(new Chart(ctx, {
+      type:'line',
+      data:{ labels: MONTHS_SHORT, datasets:[
+        {label:'Entregue', data:trend.map(t=>t.entregue), borderColor:CHART_COLORS[0], backgroundColor:CHART_COLORS[0]+'22', tension:.3, fill:true, pointRadius:2},
+        {label:'Devolvido', data:trend.map(t=>t.devolvido), borderColor:CHART_COLORS[4], backgroundColor:CHART_COLORS[4]+'22', tension:.3, fill:true, pointRadius:2},
+      ]},
+      options: chartOptsLine(),
+    }));
+  }
+  if(trend.some(t=>t.receita||t.despesa)){
+    const ctx = document.getElementById('chart-rd');
+    if(ctx) activeCharts.push(new Chart(ctx, {
+      type:'bar',
+      data:{ labels: MONTHS_SHORT, datasets:[
+        {label:'Receita', data:trend.map(t=>round2(t.receita)), backgroundColor:CHART_COLORS[0], borderRadius:4, maxBarThickness:16},
+        {label:'Despesa', data:trend.map(t=>round2(t.despesa)), backgroundColor:CHART_COLORS[4], borderRadius:4, maxBarThickness:16},
+      ]},
+      options: chartOptsLine(true),
+    }));
+  }
+  if(hasDaily){
+    const ctx = document.getElementById('chart-daily');
+    if(ctx) activeCharts.push(new Chart(ctx, {
+      type:'line',
+      data:{ labels: daily.map(d=>d.day), datasets:[
+        {label:'Entregue', data:daily.map(d=>d.entregue), borderColor:CHART_COLORS[1], backgroundColor:CHART_COLORS[1]+'22', tension:.25, fill:true, pointRadius:1.5},
+      ]},
+      options: chartOptsLine(),
+    }));
+  }
+  makeDoughnut('chart-clients', topEntries(k.clientTotals,5));
+  makeDoughnut('chart-products', topEntries(k.productTotals,5));
+  makeDoughnut('chart-returned', topEntries(k.returnedQtyByProduct,5));
+  makeDoughnut('chart-subexp', topEntries(k.subgroupTotals,5));
+
+  const groupData = topEntries(k.groupTotals);
+  if(groupData.length){
+    const ctx = document.getElementById('chart-groups');
+    if(ctx) activeCharts.push(new Chart(ctx, {
+      type:'bar',
+      data:{ labels: groupData.map(([g])=>g), datasets:[
+        {data: groupData.map(([,v])=>round2(v)), backgroundColor:CHART_COLORS[2], borderRadius:4},
+      ]},
+      options: {
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}, tooltip:{callbacks:{label:(c)=>fmtBRL(c.raw)}}},
+        scales:{ x:{ticks:{color:chartTextColor()}, grid:{color:chartGridColor()}}, y:{ticks:{color:chartTextColor(), autoSkip:false, font:{size:10}}, grid:{display:false}} }
+      }
+    }));
+  }
+}
+function chartOptsLine(isCurrency){
+  return {
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:'index', intersect:false},
+    plugins:{
+      legend:{display:true, position:'bottom', labels:{boxWidth:10, boxHeight:10, usePointStyle:true, padding:12}},
+      tooltip:{callbacks:{label:(c)=> `${c.dataset.label}: ${isCurrency?fmtBRL(c.raw):fmtQty(c.raw)}`}},
+    },
+    scales:{
+      x:{ticks:{color:chartTextColor()}, grid:{display:false}},
+      y:{ticks:{color:chartTextColor(), callback:(v)=>isCurrency?fmtBRL(v):fmtQty(v)}, grid:{color:chartGridColor()}},
+    }
+  };
+}
+function makeDoughnut(canvasId, entries){
+  if(!entries.length) return;
+  const ctx = document.getElementById(canvasId);
+  if(!ctx) return;
+  activeCharts.push(new Chart(ctx, {
+    type:'doughnut',
+    data:{ labels: entries.map(([k])=>k), datasets:[{ data: entries.map(([,v])=>round2(Math.abs(v))), backgroundColor:CHART_COLORS, borderWidth:2, borderColor: getComputedStyle(document.body).getPropertyValue('--paper')||'#fff' }] },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10, usePointStyle:true, padding:10, font:{size:10.5}, color:chartTextColor()}} }
+    }
+  }));
+}
+
+/* =========================================================================
+   RESUMO — grade diária por cliente/mês (equivalente à aba RESUM)
+   ========================================================================= */
+function renderResumo(root){
+  const years = yearsWithData();
+  if(!years.includes(resumoFilter.year)) resumoFilter.year = years[0];
+  const r = computeResumo(resumoFilter.year, resumoFilter.monthIndex, resumoFilter.client);
+  const products = state.products;
+
+  const yearOpts = years.map(y=>`<option value="${y}" ${y===resumoFilter.year?'selected':''}>${y}</option>`).join('');
+  const monthOpts = MONTHS.map((m,i)=>`<option value="${i}" ${i===resumoFilter.monthIndex?'selected':''}>${m}</option>`).join('');
+  const clientOpts = `<option value="TODOS" ${resumoFilter.client==='TODOS'?'selected':''}>Todos os clientes</option>` +
+    state.clients.map(c=>`<option value="${esc(c)}" ${resumoFilter.client===c?'selected':''}>${esc(c)}</option>`).join('');
+
+  let tableHTML;
+  if(products.length===0){
+    tableHTML = `<div class="empty-state">${ICONS.inbox}<p>Cadastre produtos para ver o resumo.</p></div>`;
+  }else{
+    const dayRows = [];
+    for(let d=1; d<=r.daysInMonth; d++){
+      const dayData = r.grid[d];
+      if(!dayData) continue;
+      const cells = products.map(p=>{
+        const v = dayData[p];
+        return v ? `<td>${fmtQty(v)}</td>` : `<td class="zero">–</td>`;
+      }).join('');
+      dayRows.push(`<tr><td>${d}</td>${cells}</tr>`);
+    }
+    const bodyRows = dayRows.length ? dayRows.join('') : `<tr><td colspan="${products.length+1}" style="text-align:center;color:var(--ink-faint);">Nenhuma entrega neste período</td></tr>`;
+    const entregueRow = `<tr class="total-row"><td>Entregue</td>${products.map(p=>`<td>${fmtQty(r.entregueByProduct[p]||0)}</td>`).join('')}</tr>`;
+    const devolvidoRow = `<tr class="total-row"><td>Devolvido</td>${products.map(p=>`<td>${fmtQty(r.devolvidoByProduct[p]||0)}</td>`).join('')}</tr>`;
+    const vendaRow = `<tr class="total-row"><td>Venda líquida</td>${products.map(p=>`<td>${fmtQty(r.vendaByProduct[p]||0)}</td>`).join('')}</tr>`;
+    const priceRow = r.singleClient ? `<tr class="total-row"><td>Valor unit.</td>${products.map(p=>`<td>${fmtBRL(r.unitPriceByProduct[p]||0)}</td>`).join('')}</tr>` : '';
+    const totalRow = r.singleClient ? `<tr class="total-row"><td>Total (R$)</td>${products.map(p=>`<td>${fmtBRL(r.totalByProduct[p]||0)}</td>`).join('')}</tr>` : '';
+
+    tableHTML = `
+      <div class="grid-scroll">
+        <table class="resumo">
+          <thead><tr><th>Dia</th>${products.map(p=>`<th>${esc(p)}</th>`).join('')}</tr></thead>
+          <tbody>
+            ${bodyRows}
+            ${entregueRow}
+            ${devolvidoRow}
+            ${vendaRow}
+            ${priceRow}
+            ${totalRow}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  const summaryCards = `
+    <div class="kpi-grid" style="margin-top:14px;">
+      <div class="kpi"><div class="kpi-label">Entregue no mês</div><div class="kpi-value">${fmtQty(r.totalEntregue)}</div></div>
+      <div class="kpi"><div class="kpi-label">Devolvido no mês</div><div class="kpi-value">${fmtQty(r.totalDevolvido)}</div></div>
+      ${r.singleClient ? `<div class="kpi wide hero"><div class="kpi-label">Total (R$) — ${esc(resumoFilter.client)}</div><div class="kpi-value">${fmtBRL(r.totalRS)}</div></div>` : `<div class="kpi wide"><div class="kpi-note">Selecione um cliente específico para ver valores em R$.</div></div>`}
+    </div>`;
+
+  root.innerHTML = `
+    <div class="view-head">
+      <h2>Resumo</h2>
+      <p class="sub">Entregas por dia, filtradas por cliente e mês</p>
+    </div>
+    <div class="filter-row">
+      <select onchange="resumoFilter.year=parseInt(this.value); renderCurrentView();">${yearOpts}</select>
+      <select onchange="resumoFilter.monthIndex=parseInt(this.value); renderCurrentView();">${monthOpts}</select>
+    </div>
+    <div class="filter-row">
+      <select onchange="resumoFilter.client=this.value; renderCurrentView();">${clientOpts}</select>
+    </div>
+    ${tableHTML}
+    ${summaryCards}
+  `;
+}
+
+/* =========================================================================
+   CADASTROS — clientes, produtos, preços, categorias de despesa, backup
+   ========================================================================= */
+const CADASTRO_SUBTABS = [
+  {key:'clientes', label:'Clientes'},
+  {key:'produtos', label:'Produtos'},
+  {key:'precos', label:'Preços'},
+  {key:'categorias', label:'Despesas'},
+  {key:'dados', label:'Dados'},
+];
+
+function renderCadastros(root){
+  root.innerHTML = `
+    <div class="view-head">
+      <h2>Cadastros</h2>
+      <p class="sub">Clientes, produtos, preços e categorias</p>
+    </div>
+    <div class="subtabs">
+      ${CADASTRO_SUBTABS.map(t=>`<button class="${cadastroSubtab===t.key?'active':''}" onclick="setCadastroSubtab('${t.key}')">${t.label}</button>`).join('')}
+    </div>
+    <div id="cadastro-body"></div>
+  `;
+  renderCadastroBody();
+}
+function setCadastroSubtab(key){
+  cadastroSubtab = key;
+  renderCadastros(document.getElementById('view-root'));
+}
+function renderCadastroBody(){
+  const body = document.getElementById('cadastro-body');
+  if(cadastroSubtab==='clientes') return renderSimpleListManager(body, 'clients', 'Cliente', 'cliente');
+  if(cadastroSubtab==='produtos') return renderSimpleListManager(body, 'products', 'Produto', 'produto');
+  if(cadastroSubtab==='precos') return renderPrecos(body);
+  if(cadastroSubtab==='categorias') return renderCategorias(body);
+  if(cadastroSubtab==='dados') return renderDados(body);
+}
+
+/* ---- Clientes / Produtos (lista simples) ---- */
+function renderSimpleListManager(container, stateKey, label, labelLower){
+  const items = state[stateKey];
+  container.innerHTML = `
+    <div class="add-inline">
+      <input type="text" id="new-item-input" placeholder="Novo ${esc(labelLower)}">
+      <button class="btn btn-primary" onclick="addSimpleItem('${stateKey}')" aria-label="Adicionar">${ICONS.plus}</button>
+    </div>
+    <div class="simple-list">
+      ${items.length===0 ? `<div class="empty-state">${ICONS.inbox}<p>Nenhum ${esc(labelLower)} cadastrado.</p></div>` :
+        items.map((it,i)=>`
+        <div class="item">
+          <span class="name">${esc(it)}</span>
+          <button onclick="renameSimpleItem('${stateKey}',${i})" aria-label="Renomear ${esc(it)}">${ICONS.pencil}</button>
+          <button class="del" onclick="removeSimpleItem('${stateKey}',${i},'${labelLower}')" aria-label="Excluir ${esc(it)}">${ICONS.trash}</button>
+        </div>`).join('')}
+    </div>
+  `;
+  const input = document.getElementById('new-item-input');
+  if(input) input.addEventListener('keydown', e=>{ if(e.key==='Enter') addSimpleItem(stateKey); });
+}
+function addSimpleItem(stateKey){
+  const input = document.getElementById('new-item-input');
+  const val = (input.value||'').trim();
+  if(!val) return;
+  if(state[stateKey].some(x=>x.toLowerCase()===val.toLowerCase())){ toast('Já existe um item com esse nome.'); return; }
+  state[stateKey].push(val);
+  saveState();
+  renderCadastroBody();
+  toast('Adicionado.');
+}
+function renameSimpleItem(stateKey, index){
+  const oldVal = state[stateKey][index];
+  openSheet(`
+    <div class="grabber"></div>
+    <div class="sheet-head"><h3>Renomear</h3><button onclick="closeSheet()" aria-label="Fechar">${ICONS.x}</button></div>
+    <div class="field"><label>Nome</label><input type="text" id="rename-input" value="${esc(oldVal)}"></div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeSheet()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmRenameItem('${stateKey}',${index})">Salvar</button>
+    </div>
+  `);
+}
+function confirmRenameItem(stateKey, index){
+  const val = (document.getElementById('rename-input').value||'').trim();
+  if(!val) return;
+  const oldVal = state[stateKey][index];
+  if(oldVal===val){ closeSheet(); return; }
+  state[stateKey][index] = val;
+  if(stateKey==='clients' && state.prices[oldVal]){ state.prices[val] = state.prices[oldVal]; delete state.prices[oldVal]; }
+  if(stateKey==='products'){
+    Object.keys(state.prices).forEach(c=>{ if(state.prices[c] && state.prices[c][oldVal]!=null){ state.prices[c][val] = state.prices[c][oldVal]; delete state.prices[c][oldVal]; } });
+  }
+  renameAcrossRecords(stateKey==='clients'?'client':'product', oldVal, val);
+  saveState();
+  closeSheet();
+  renderCadastroBody();
+  toast('Renomeado.');
+}
+function renameAcrossRecords(field, oldVal, newVal){
+  ['sales','returns'].forEach(k=>{ state[k].forEach(r=>{ if(r[field]===oldVal) r[field]=newVal; }); });
+}
+function removeSimpleItem(stateKey, index, labelLower){
+  const val = state[stateKey][index];
+  confirmDialog(`Excluir ${labelLower}`, `Excluir <strong>${esc(val)}</strong>? Lançamentos já registrados manterão o nome antigo.`, 'Excluir', ()=>{
+    state[stateKey].splice(index,1);
+    if(stateKey==='clients') delete state.prices[val];
+    if(stateKey==='products') Object.keys(state.prices).forEach(c=>{ if(state.prices[c]) delete state.prices[c][val]; });
+    saveState();
+    renderCadastroBody();
+    toast('Removido.');
+  });
+}
+
+/* ---- Preços (matriz cliente x produto) ---- */
+function renderPrecos(container){
+  if(state.clients.length===0){
+    container.innerHTML = `<div class="empty-state">${ICONS.inbox}<p>Cadastre clientes primeiro.</p></div>`;
+    return;
+  }
+  if(!precosClient || !state.clients.includes(precosClient)) precosClient = state.clients[0];
+  const clientIdx = state.clients.indexOf(precosClient);
+  container.innerHTML = `
+    <div class="field"><label>Cliente</label>
+      <select onchange="precosClient=this.value; renderCadastroBody();">
+        ${state.clients.map(c=>`<option value="${esc(c)}" ${c===precosClient?'selected':''}>${esc(c)}</option>`).join('')}
+      </select>
+    </div>
+    <p class="hint" style="margin-bottom:10px;">Preço que <strong>${esc(precosClient)}</strong> paga por unidade de cada produto.</p>
+    <div class="card" style="padding:4px 14px;">
+      ${state.products.length===0 ? `<div class="empty-state">${ICONS.inbox}<p>Cadastre produtos primeiro.</p></div>` :
+        state.products.map((p,pi)=>`
+        <div class="price-row">
+          <span class="pname">${esc(p)}</span>
+          <span class="pprice"><input type="number" inputmode="decimal" step="0.01" min="0" value="${getPrice(precosClient,p)||''}" placeholder="0,00" aria-label="Preço de ${esc(p)} para ${esc(precosClient)}" onchange="setPriceAt(${clientIdx},${pi}, this.value)"></span>
+        </div>`).join('')}
+    </div>
+  `;
+}
+function setPriceAt(clientIdx, productIdx, value){
+  setPrice(state.clients[clientIdx], state.products[productIdx], value);
+}
+
+/* ---- Categorias de despesa (acordeão) ---- */
+function renderCategorias(container){
+  const cats = state.expenseCategories;
+  const keys = Object.keys(cats);
+  container.innerHTML = `
+    <div class="add-inline">
+      <input type="text" id="new-cat-input" placeholder="Nova categoria">
+      <button class="btn btn-primary" onclick="addCategory()" aria-label="Adicionar categoria">${ICONS.plus}</button>
+    </div>
+    ${keys.length===0 ? `<div class="empty-state">${ICONS.inbox}<p>Nenhuma categoria cadastrada.</p></div>` :
+      keys.map((cat,ci)=>`
+      <details class="accordion" ${expandedCategoryIndex===ci?'open':''} ontoggle="if(this.open) expandedCategoryIndex=${ci}; else if(expandedCategoryIndex===${ci}) expandedCategoryIndex=null;">
+        <summary>
+          <span>${esc(cat)} <span class="count-badge">${cats[cat].length}</span></span>
+          <span style="display:flex;align-items:center;gap:10px;">
+            <button type="button" onclick="event.preventDefault();event.stopPropagation();removeCategoryAt(${ci})" aria-label="Excluir categoria ${esc(cat)}" style="color:var(--ink-faint);display:flex;background:none;border:none;padding:2px;cursor:pointer;font-size:16px;">${ICONS.trash}</button>
+            <span class="chev">${ICONS.chev}</span>
+          </span>
+        </summary>
+        <div class="acc-body">
+          <div class="simple-list">
+            ${cats[cat].map((sub,i)=>`
+              <div class="item">
+                <span class="name">${esc(sub)}</span>
+                <button class="del" onclick="removeSubcategoryAt(${ci},${i})" aria-label="Excluir ${esc(sub)}">${ICONS.trash}</button>
+              </div>`).join('')}
+          </div>
+          <div class="add-inline" style="margin-top:10px;">
+            <input type="text" class="new-sub-input" placeholder="Nova subcategoria">
+            <button class="btn btn-primary btn-sm" onclick="addSubcategoryAt(${ci}, this)" aria-label="Adicionar subcategoria">${ICONS.plus}</button>
+          </div>
+        </div>
+      </details>`).join('')}
+  `;
+}
+function addCategory(){
+  const input = document.getElementById('new-cat-input');
+  const val = (input.value||'').trim();
+  if(!val) return;
+  if(state.expenseCategories[val]){ toast('Categoria já existe.'); return; }
+  state.expenseCategories[val] = [];
+  saveState();
+  renderCadastroBody();
+  toast('Categoria adicionada.');
+}
+function removeCategoryAt(ci){
+  const cat = Object.keys(state.expenseCategories)[ci];
+  confirmDialog('Excluir categoria', `Excluir <strong>${esc(cat)}</strong> e todas as suas subcategorias?`, 'Excluir', ()=>{
+    delete state.expenseCategories[cat];
+    saveState();
+    renderCadastroBody();
+    toast('Categoria removida.');
+  });
+}
+function addSubcategoryAt(ci, btnEl){
+  const cat = Object.keys(state.expenseCategories)[ci];
+  const input = btnEl.parentElement.querySelector('.new-sub-input');
+  const val = (input.value||'').trim();
+  if(!val) return;
+  if(state.expenseCategories[cat].includes(val)){ toast('Subcategoria já existe.'); return; }
+  state.expenseCategories[cat].push(val);
+  saveState();
+  renderCadastroBody();
+  toast('Subcategoria adicionada.');
+}
+function removeSubcategoryAt(ci, index){
+  const cat = Object.keys(state.expenseCategories)[ci];
+  state.expenseCategories[cat].splice(index,1);
+  saveState();
+  renderCadastroBody();
+  toast('Subcategoria removida.');
+}
+
+/* ---- Dados (backup / restauração) ---- */
+function renderDados(container){
+  const totalRegistros = state.sales.length + state.returns.length + state.expenses.length;
+  container.innerHTML = `
+    <div class="card about-card">
+      <p><strong>Sítio Encantado — Controle</strong> guarda seus dados neste dispositivo (armazenamento local do navegador). Nada é enviado para servidores.</p>
+      <p>${totalRegistros} lançamento(s) registrados · ${state.clients.length} cliente(s) · ${state.products.length} produto(s).</p>
+      <p>Faça backups regularmente — limpar os dados do navegador apaga tudo que não tiver sido exportado.</p>
+    </div>
+    <div class="export-row">
+      <button class="btn btn-primary" onclick="exportData()">${ICONS.download} Exportar backup</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('import-file-input').click()">${ICONS.upload} Importar</button>
+    </div>
+    <input type="file" id="import-file-input" accept="application/json,.json" style="display:none" onchange="importDataFile(this)">
+    <div class="divider"></div>
+    <button class="btn btn-danger btn-block" onclick="resetAllData()">Apagar todos os dados</button>
+  `;
+}
+
+async function exportData(){
+  const dataStr = JSON.stringify(state, null, 2);
+  const filename = `sitio-encantado-backup-${todayStr()}.json`;
+  if(window.claude && window.claude.use){
+    try{
+      const downloads = await window.claude.use('downloads');
+      if(downloads){
+        try{
+          await downloads.save({filename, data:dataStr});
+          toast('Backup salvo!');
+          return;
+        }catch(err){
+          if(err && err.code==='declined') return;
+          toast('Não foi possível salvar o backup.');
+          return;
+        }
+      }
+    }catch(e){ /* segue para o fallback */ }
+  }
+  try{
+    const blob = new Blob([dataStr], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    toast('Backup baixado!');
+  }catch(e){ toast('Não foi possível gerar o backup.'); }
+}
+function importDataFile(inputEl){
+  const file = inputEl.files && inputEl.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    let parsed;
+    try{ parsed = JSON.parse(reader.result); }
+    catch(e){ toast('Arquivo inválido.'); return; }
+    confirmDialog('Importar backup', 'Isso vai <strong>substituir todos os dados atuais</strong> pelos dados do arquivo importado. Deseja continuar?', 'Importar', ()=>{
+      state = Object.assign(seedState(), parsed);
+      saveState();
+      renderCurrentView();
+      toast('Backup importado.');
+    });
+  };
+  reader.readAsText(file);
+  inputEl.value = '';
+}
+function resetAllData(){
+  confirmDialog('Apagar todos os dados', 'Isso vai <strong>excluir permanentemente</strong> todos os clientes, produtos, preços e lançamentos deste dispositivo. Recomendamos exportar um backup antes. Deseja continuar?', 'Apagar tudo', ()=>{
+    state = seedState();
+    saveState();
+    currentTab = 'painel';
+    renderTabbar();
+    renderCurrentView();
+    toast('Todos os dados foram apagados.');
+  });
+}
+
+/* =========================================================================
+   INICIALIZAÇÃO
+   ========================================================================= */
+const LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAIwAAACBCAMAAAAlgKLSAAAAwFBMVEUAAwIJQy9vLQ4HYBLssC1zKAUGOivssDE6rxcHPCwIPixsKw32sUs1pwv++AY5qxUIQCwAV1fwukLwukHnrCs5rBTwukEHQCxTrATmrCttLA5mZAP/AAAD/ABW3Ar841/9fwNBwhpDvBpAuhK1cyqwsBj4wkT3wUSgYhpFwxH5w0WqqlWeIgD/f39SYi2f8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWHOViAAAAMHRSTlMB9/gP9hJaFeuf32YRFAKhoQPYX6Jhn1wLXJ4DAQEdCwL//V0GA6LR905gAwQC4wnChwcDAAAPXElEQVR42r1cCZuiOBCNkzERGgNII9ri0bb2MTO7+///3daRhKDg3ZNvRm0I5OXVq0rIgRDXJum+VJZF8SBIUZapg1zfmmROn1UWD1o4mhRnkeSc34yHkFSZKzaKIqUcF/AL/rYIs+qb2ZGyQQI44MBqVqZpOuIEv2azshIAKcDzTVDwv0MixOoLQLw6FKnDBEfSr1IqZqhR0MOhMCmxEuOvlEGUY0g+D/5hQaUOT1x9i1YICnAyfuPSHIqkkLMZ4pAeU5laPERP9Vjx5NZAsZIrLMcCmSEAqSfaa2oFhxb4c8l4xlVk4eQPNBFDIVJSZkQul/RtxCT5resmtwFuiAjCU0oH52EWwvshlC2QgoaQS22MK3uiiZx/hKg3ifgtpnORiBniGZd4BcHJHmUopEUJujEaZyaEFtMplChqArPWkzXmW4tpIUwCyAgoZpzhVW8ipjvcqxzJtERi5aCQccwGydAIBRGsAYwptIGDtZgUCJPSEuDIcvSajhWS8yBaxmD+km/ujDOf6AThJEgSAABriWIqRDFJwssZDlwcMTl38UK0lCzbWeskYKinhUkQAspkos20+L0GXLogOyXGwcG6OHJuNxWaSMl0OxoHd1mDTAuwBVBQTKBYBFPgTz0hZHoyBRk7gaOOBVaHlJPd7uSEZYU2F+NlcFyDSrH4Goo3gIrATGsCQtpeAxpRJMJ47YzT1xTd6kY0uUBixRuppbHQRhQoXeQFAEHBZj35PaVf8AmkTAGjgQzTiW7YmRE5K7rjTVioHnCLNi0JSRTEOlmDTJKJEYuJQRiFnqCtCsCwQbBT8nzRONYYTKVukjFhiZbpFk3UOrOA8gp2IvpXJ0ViEl0kxRTowiijE8qyNgfeINPXN3ETGsQiwNBH+jdrUAa4jJkQHUXDWcJODq49JfKOfLNBc51ugM9omL6WbeW6IIP6hUYgAacCDMUU09rGHDg7/dDHWLA5k3hH0k1+nR8hL+WBicAcgrhAbsAWUPD7+2RaQJpOPn4ZFLcoPqaCg7BJ2neFttWjuYqXTPbwkkwQCAkUZfzLF1i8w4lN8j6hMLSuk+ToWpAxWyq7ghrEfszLup6+Fwar/lFgaGPHEou1hpTQCVDMu0g+JolGM5lCd6EpUQMXtwKIpdymB1jAUyF4gFG0+PX+UQzBfwBL4n0GTYikTT9+UWQsph/TINRYNHIJ3KjLXSrrxkLFYRmT90IDnAT9qVV1DC/Fekq53gl11yOGTEer6DI0FHjVfxDrZosDKGAVcpoF4JkWvxKK++IQDRgO3Om9SOjv4zTG6CehnTrfZko0UmQw7h7lret1QXZKsOYFBuADI2Cvq9BA3fpEETMI6yjL6KyIc8J8LN6AoMIKB9vFw5PrTTE16PvrZA7u3vSz2tyUJGJ1iVdD3rQbi7FcgHAw2JqjomrQsAHvxjSd/krM2tQdaKCDMwPZyPOeFK3ASHLZedoYkxhd/ALFoDo2XWDgNHt2b1qgbM5GG2oeRdolGOTDlQC8oGRER6WNgPBT63WiEwg/8H+ddCqTDXWqWZDkSatt2isYTWmtiyLBfp05ygD9c+AsSNA2/NPl4FDjeBCfBIPnu40EzwHQGvoy3jVSYDqyaegH+mTW2nSXNB6l6lT7zSHmrc+TgI4i0XcPHzj/BmqiUy0muHWExMzO3tXojfhtuk9hQHLJmO5M0EjNRqk45d7s1qXoAZPsE3MfLSBK1Wh4C+4dy77MA1KMlJfeW8kur5M9Y16QH385NIvxCWpyjDHibdtLzCGN6sq+rMuvfBzegmr6Yk1GxIjlJXzbOyuV95XZPiZFcFgRUUt2qK5YA+fjgZptQ1eSvS6h/Fl1nEkdtLwAT1atg3SRFBRruqlRNvgGNz0sSZJ1VMOHDIqWHkeLHNlnzQVQw2G4I4FfL0FTMqygrULbBkr2j8yG+RrVdrAsOdbIloTroOMLz7LYKkn2QkfxGT24/lu3sfpVjqWUozLq7A5jOByNZuKEIHsqeUhLk/ukw8EVLGF51BKjlVZspUOhKLZLddVAmDyhloaaFDug6ggMHLRW6nIeJQMV3NQYdfYqnZ2ka2SbZ0i0Uk+QqU5VcjHc/YGv4aJz2qNJQ0j1YrfYNTod48BE7Hv8c1sFiHhopbH4u4l6fBZ2AybGMapLm4J2eoI0pI+T2YZPLy8vNt/QNwkomorBGAcGm6wSJLO6AcwPSE/4cQpMLYY+35MDg08tb5EblN04zSiSzPimscjbwYDeEIx9gvJgqkE8DsPvhQk12RQCEl70peGiB8yIWgQZminiKDO7i5kzwBswiM6KJmUFI5idA0PP1+NrwQzbzDwNT6WngJnm4dKGvRYYOPB1A5gfLj39uCxRvhfvetjD8greEBgalqfuw+qvgPnBagc4Swh7X96d9HPQl7laMsMXTK1CqNbdqQeMYwYejee+MbgBzIGAGc3wrIAbMyGY1ILR9fz5LjAHrv3k4RzJ908o9ObxCYcAbC9iJ561CzNydDczAKKBsxj2Bz1EF7ZO/PSkf2pqXSnm3c8MFNFip+5jZhg+5gpiZl3PLRiIeWOKecbQOOoeP3ufTc80B0/d2ulkZuzBGPHzmbtAHIDr//TREMjGnGyIW17Sjm8Ap506NNOAWYCV5iGYJZY+f54/U5pr7gbqZPHwoPeC3lSHYPbi+af+JwADUednOyEimjAx3xP0AjMhMayZDAW8PYTiAdkB6XNmOoxyL+0weAoMKOanG8kFb5oJXzqlDjyba1tthmOl3BX0INCMmJk5EGNHj6v4X1ts8+yC8nkO8GCPY2fOuHY7hXB6gt6Se8EGXGlvR5vUv4yEZ4kobTwij0fTzO0VPb0WnK7+zNI+x4lnMbeBBDoSWNgcgey9LRZ7vaNx0wYPmcsEaj7DDIcTC+epI+jZhjKaA5q1e3jienfU2mySXRsP0tO21vk+8PCl5U1N0LNgwC521YtZExbhbHb0TMhU6BY9Gzp20IU418071syM+zNoFR683qORnnt9hU2GpB3QA7Hw1jiDVaCgR2Np/2Lx2g2jwu31ZtM9MuwHLDZJSM9PpKde3Bv04AF2hHoVG/fI+4ws7XpmK+OgF7DbtNV8KOCX06kDzP73aItU+CZZI0ubHr3EqnmWknZyOKBnfdujivMztA1iaWb0oKq6a7Khd3Scr2nUfImAu3p6ZsP10sEUGdy4gxhorXA9ZKZEFmURpEyozE6n4sJEPfex8PPqx9v6z7A2QMvchpQm27xLMfFggBMJchCpgV3eqqJBRdPMsV0/1cTmz08qZFdf+qz9J9lbc8/bIUV7Jw/EgcN+kaJv/oSvbEB9DX6wMYh/H+JBzSz0vr4AzM4pD2hpB1ANR+rjKVzrTZEdCKXncWl/ZXR4n7Ri88/PuXYTmeYMMzu+an4026yfj9Qrc7d4zIORCEbgmBcORLtxuOQAj+2MISK9XywaUPUmGIXgphBD1VF008+dM1q0gKYTDM4eZs7jFxS5AzwAaN70Q+pkD537/b5x7c9Pm2vTOQl/NNUq/Sj1ARjpDRYu1twc8kMdNITU3BmY2gGOz1Z7YrpnZTdHjq1aYDIHBhcxyOPpvAU3+G1ATa+xo99odN0zJXs0KcwLrxszxbz0VZHPD7CbeDTGZRJ2UT2fd/elvQ37SOkfTeZV+4oWXktcMJ7boKcgBvaNNoNnGzflPG8RYp99GPbuntnFqxL0WpveorbJ63mfJPXVt8xzO1Ism7Fu//P8EiWINcluFxjD4J+3zLdKKfNc8qxNnvtxfhuBmq0Nsjko7be92F9usOu9W+DqDHvXIJbl9+2SyDvnBO64x3k0OPtc8VSRrGz26mC+pz0/WXGNMbeUPHHYzIHIZm+LCgFUqjoPPPK7TsjFafFE5Nok3mshmrXCOTfxkW3qRbCBxTX/mZ2c4KR4ejjzdzoJhrJlcYxr4iPuSAheB+RhSpRH5AqkctxcNO2n4X+SAlaM41K5aFAibtlGfAoMbqMAuqF8XyDeA5cHgyEqOycz4C6PBRPTWAaAiahcCbfx/SLFPGIWXhxPjHMEjU/pJhd+ClNZMJEFE/t+hR2tVTH31y391FYoHvt3s7+cSRIzmb0sFn5F5dlVp1YBSvpmQQma8R1wx4G1StAUb2+whEsetpTSjzLTepyKl/nD1ZJbOLoO1UbmPy0bb1uJrKJ2Blh0Fa69kcwVf1g5kB2lrYJfXeEySbeEErFlWAnJYOJzYCJVZUQDqoBWTLfA2ALZ6GxDVKQiZnISsnSOWTE9DjeBwT04luH4DJg4mPamvOwbFVZJ5s1krwWj+Ao18B4kfHX5NO1VccxIBBNxuy+DrCfBUO0F+aUiK1SNfRWW7Tw4tldEhCaobs6ZnNOxsZjSiDWTi7PrXz1z2cD+tj4V23ULEkDhIXiWisgtqHoyBDNwVoqzJpP1pnhw4E2nwaBoaOMWRwwOUZEFEGUxA5O2F1ZZrhWKnc0Uc5xzRZI/IYm805EjUUx3OmMlEexCdLezK/TdLkGoo71LXuHzJeeSkYvIB985GaPdTFwWgckXYhbEQLDs0ba0N1LROQjQ1tYShZx5R4ns/N6AaVMcmKwyBhwlBnYZQ4V/37Rj7lE7pbiLJK+4tez4S4ZdLJmfWPfRWwAcXLVXZZy40+HqlwraxLIc3zgH1ZFwh0hZiqqqriRa5op38ODyiOVDsKyWN++dkdaDRq+leAg5wAZuNlE3bUdzaNLR4e6mW02EWHCkSd7mDrxL8HV0Nzm8vYk2hmS5vK1mkuLbeLQt5T3KkUjLluVyxx492uQqTPqKawlvtNWSaUkX6r6dprLZ0EnbBW+As8TLqDKDG7eghT3iikyF+39xp+vsOvGhVmkPplSP2PKaO3JWKW+8nV0uZcw6RlJX4nF7k9Wg2Xw7FhfioUzAyhagRIO7dlB2kAMGb3ZIz07655JWodOebYBi6/Kg1ja35EDl7N5xnh8fuz3bAYyltDvckZRROuMrH7l73O/Zhgr+V9pd9XasahwmxibtvvqvMXdYM/HYlzJI4eDgiw/Kkdvmf7jgcWw3+MNJsA+/AUE+kpYATuZexCDeylHwGoayLJu3MYxGb1+AhEihrtyjofjhHftiCBp3XH0xotfX7Xb7Su+ISBEH9D/tayqU+L63ZvCy4My/MsR2VFYzSKvVyj5TRfb0N74wQ4imxymzLBgTilwK323y3a8SCcZBeaA4Hhy9aAVHMDIlpfgLL1nx6sld0xNlGc7TZfQdWOZGJP8Dr2gB7Mn3ETMAAAAASUVORK5CYII=";
+
+function initBrandMark(){
+  const el = document.getElementById('brand-mark');
+  el.innerHTML = `<img src="data:image/png;base64,${LOGO_B64}" alt="Sítio Encantado">`;
+}
+
+function updateTopbarForTab(){
+  const gearBtn = document.getElementById('settings-btn');
+  gearBtn.innerHTML = ICONS.gear;
+}
+
+function init(){
+  state = loadState();
+  initBrandMark();
+  document.getElementById('settings-btn').innerHTML = ICONS.gear;
+  document.getElementById('settings-btn').addEventListener('click', openCadastros);
+  renderTabbar();
+  renderCurrentView();
+
+  // Sinaliza dados vindos de outra aba/janela (mesma origem)
+  window.addEventListener('storage', (e)=>{
+    if(e.key===STORAGE_KEY){ state = loadState(); renderCurrentView(); }
+  });
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', init);
+}else{
+  init();
+}
+</script>
+</body>
+</html>
