@@ -355,6 +355,91 @@ table.resumo td.zero{color:var(--ink-faint);}
 .export-row .btn{flex:1;}
 .about-card p{margin:0 0 8px;font-size:13px;color:var(--ink-soft);}
 .about-card p:last-child{margin-bottom:0;}
+
+/* ---------- v2: lançamentos rápidos, busca, atalhos ---------- */
+.quick-actions{display:flex;gap:10px;margin-bottom:16px;}
+.quick-actions button{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:13px 8px;cursor:pointer;box-shadow:var(--shadow);
+}
+.quick-actions button .qa-ic{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--forest);color:#fbf7ea;
+}
+.quick-actions button.secondary .qa-ic{background:var(--gold-light);color:#4a3208;}
+.quick-actions button .qa-ic svg{width:19px;height:19px;}
+.quick-actions button span:last-child{font-size:12px;font-weight:600;color:var(--ink);text-align:center;}
+
+.mode-toggle{display:flex;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:3px;margin-bottom:14px;}
+.mode-toggle button{
+  flex:1;border:none;background:none;padding:9px 4px;border-radius:999px;font-size:13.5px;font-weight:600;
+  color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.mode-toggle button.active{background:var(--forest);color:#fbf7ea;}
+.mode-toggle button svg{width:15px;height:15px;}
+
+.search-box{position:relative;margin-bottom:14px;}
+.search-box input{
+  width:100%;padding:11px 12px 11px 38px;border:1.5px solid var(--line);border-radius:var(--radius-s);
+  background:var(--paper);color:var(--ink);
+}
+.search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-faint);}
+.search-box .clear-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--ink-faint);padding:4px;cursor:pointer;display:flex;}
+.search-box .clear-btn svg{position:static;transform:none;width:14px;height:14px;}
+
+.chip-row{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;margin-bottom:14px;}
+.chip-row .chip{
+  flex:none;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);
+  padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;
+}
+.chip-row .chip:active{background:var(--cream);}
+.chip-row .chip .sub{color:var(--ink-faint);font-weight:400;}
+
+/* grade de lançamento multi-produto */
+.mi-client-row{display:flex;align-items:center;gap:10px;background:var(--cream);border-radius:var(--radius-s);padding:10px 12px;margin-bottom:12px;}
+.mi-client-row .avatar{
+  width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fbf7ea;flex:none;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:var(--font-display);
+}
+.mi-client-row .info{flex:1;min-width:0;}
+.mi-client-row .info .name{font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mi-client-row .info .meta{font-size:11.5px;color:var(--ink-soft);}
+.mi-client-row button{background:none;border:none;color:var(--forest);font-size:12px;font-weight:700;padding:6px 4px;cursor:pointer;}
+:root[data-theme="dark"] .mi-client-row button,
+:root:not([data-theme="light"]) .mi-client-row button{color:var(--gold-light);}
+@media (prefers-color-scheme:dark){.mi-client-row button{color:var(--gold-light);}}
+
+.mi-list{border:1px solid var(--line);border-radius:var(--radius-m);background:var(--paper);overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px;}
+.mi-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);}
+.mi-row:last-child{border-bottom:none;}
+.mi-row.mi-has-qty{background:rgba(63,150,19,.09);}
+.mi-row .mi-name{flex:1;min-width:0;}
+.mi-row .mi-name .n{font-size:13.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mi-row .mi-price{font-size:11.5px;color:var(--ink-soft);background:none;border:none;padding:1px 0;cursor:pointer;text-align:left;display:block;}
+.mi-row .mi-price.unset{color:var(--gold);text-decoration:underline;text-decoration-style:dotted;}
+.mi-row .mi-qty{width:74px;flex:none;padding:9px 8px;border:1.5px solid var(--line);border-radius:8px;background:var(--cream);color:var(--ink);text-align:right;font-weight:600;}
+.mi-row .mi-qty.suggested{border-color:var(--gold);background:var(--gold-light);color:#4a3208;}
+.mi-divider-row{padding:7px 12px;font-size:10.5px;font-weight:700;color:var(--ink-faint);background:var(--cream);border-bottom:1px solid var(--line);}
+.mi-total-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--forest);color:#fbf7ea;border-radius:var(--radius-s);padding:12px 14px;margin-bottom:6px;
+}
+.mi-total-bar .lbl{font-size:12.5px;color:#cfe6d7;}
+.mi-total-bar .val{font-family:var(--font-display);font-size:19px;font-weight:600;}
+.mi-count-badge{font-size:11px;color:#a9c9b4;}
+
+.mixed-record .kind-tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px;margin-left:6px;display:inline-block;vertical-align:middle;}
+.mixed-record .kind-tag.entrega{background:#e3f3e6;color:var(--forest);}
+.mixed-record .kind-tag.devolucao{background:#fbe6e1;color:var(--brick);}
+:root[data-theme="dark"] .mixed-record .kind-tag.entrega,
+:root:not([data-theme="light"]) .mixed-record .kind-tag.entrega{background:#173627;color:#8fd9ab;}
+:root[data-theme="dark"] .mixed-record .kind-tag.devolucao,
+:root:not([data-theme="light"]) .mixed-record .kind-tag.devolucao{background:#3a1f1a;color:#f0a693;}
+@media (prefers-color-scheme:dark){
+  .mixed-record .kind-tag.entrega{background:#173627;color:#8fd9ab;}
+  .mixed-record .kind-tag.devolucao{background:#3a1f1a;color:#f0a693;}
+}
 </style>
 </head>
 <body>
@@ -406,6 +491,10 @@ const ICONS = {
   users:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.7 19c.8-3.4 3.2-5.2 6.3-5.2s5.5 1.8 6.3 5.2"/><circle cx="17.2" cy="8.6" r="2.3"/><path d="M16 13.9c2.5.2 4.3 1.9 5 4.8"/></svg>`,
   seed:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4.5" ry="8" transform="rotate(30 12 12)"/><path d="M12 4v-1.5"/></svg>`,
   tag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 3.5h5.8a1 1 0 0 1 1 1v5.8a1 1 0 0 1-.3.7l-8.5 8.5a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.4l8.5-8.5a1 1 0 0 1 .9-.1Z"/><circle cx="15.2" cy="8.8" r="1.3"/></svg>`,
+  search:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>`,
+  sparkle:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v4M12 16v4M4 12h4M16 12h4M6.5 6.5l2 2M15.5 15.5l2 2M17.5 6.5l-2 2M8.5 15.5l-2 2"/></svg>`,
+  swap:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 4 4 4-4 4"/><path d="M4 8h7"/><path d="m17 12-4 4 4 4"/><path d="M20 16h-7"/></svg>`,
+  check:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg>`,
   coin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.3 15.3c0 1 1 1.7 2.7 1.7s2.7-.7 2.7-1.9c0-2.6-5.4-1.2-5.4-3.8 0-1.2 1.1-1.9 2.7-1.9s2.7.7 2.7 1.7"/></svg>`,
 };
 
@@ -432,6 +521,7 @@ function seedState(){
     sales: [],
     returns: [],
     expenses: [],
+    lastClients: {},   // { entrega: 'nome', devolucao: 'nome' } — último cliente usado em cada fluxo
   };
 }
 
@@ -649,6 +739,52 @@ function computeResumo(year, monthIndex, client){
 }
 
 /* =========================================================================
+   "INTELIGÊNCIA" DE LANÇAMENTO — sugestões a partir do próprio histórico do
+   usuário (sem depender de nada externo): última quantidade entregue/devolvida
+   para aquele cliente+produto, último valor usado para aquela despesa, e o
+   último cliente usado em cada fluxo, para reduzir toques no dia a dia.
+   ========================================================================= */
+function lastClientFor(mode){
+  return (state.lastClients && state.lastClients[mode]) || null;
+}
+function rememberLastClient(mode, client){
+  if(!state.lastClients) state.lastClients = {};
+  state.lastClients[mode] = client;
+}
+function suggestQty(client, product, mode){
+  const source = mode==='entrega' ? state.sales : state.returns;
+  const matches = source.filter(r=>r.client===client && r.product===product);
+  if(!matches.length) return null;
+  matches.sort((a,b)=> (b.year-a.year) || (b.monthIndex-a.monthIndex) || ((b.day||0)-(a.day||0)));
+  return matches[0].qty;
+}
+function sortProductsForClient(client){
+  const withPrice = [];
+  const withoutPrice = [];
+  state.products.forEach(p=>{ (getPrice(client,p)>0 ? withPrice : withoutPrice).push(p); });
+  return {withPrice, withoutPrice};
+}
+function suggestExpenseValue(group, subgroup){
+  const matches = state.expenses.filter(e=>e.group===group && e.subgroup===subgroup);
+  if(!matches.length) return null;
+  matches.sort((a,b)=> (b.year-a.year) || (b.monthIndex-a.monthIndex));
+  return matches[0].value;
+}
+function recentExpenseChips(n){
+  const sorted = state.expenses.slice().sort((a,b)=> (b.year-a.year) || (b.monthIndex-a.monthIndex));
+  const seen = new Set();
+  const out = [];
+  for(const e of sorted){
+    const key = e.group+'\u241F'+e.subgroup;
+    if(seen.has(key)) continue;
+    seen.add(key);
+    out.push({group:e.group, subgroup:e.subgroup, value:e.value});
+    if(out.length>=n) break;
+  }
+  return out;
+}
+
+/* =========================================================================
    NAVEGAÇÃO
    ========================================================================= */
 let currentTab = 'painel';
@@ -661,8 +797,7 @@ let activeCharts = [];
 
 const TABS = [
   {key:'painel', label:'Painel', icon:'home', sub:'Indicadores e gráficos da propriedade'},
-  {key:'entregas', label:'Entregas', icon:'box', sub:'Registro de entregas aos clientes'},
-  {key:'devolucoes', label:'Devoluções', icon:'undo', sub:'Produtos devolvidos pelos clientes'},
+  {key:'lancamentos', label:'Lançamentos', icon:'box', sub:'Entregas e devoluções por cliente'},
   {key:'despesas', label:'Despesas', icon:'wallet', sub:'Custos e gastos da propriedade'},
   {key:'resumo', label:'Resumo', icon:'chart', sub:'Entregas por dia, cliente e produto'},
 ];
@@ -698,7 +833,8 @@ function renderCurrentView(){
   if(currentTab==='painel') renderPainel(root);
   else if(currentTab==='resumo') renderResumo(root);
   else if(currentTab==='cadastros') renderCadastros(root);
-  else if(SCREENS[currentTab]) renderTransactionScreen(root, currentTab);
+  else if(currentTab==='lancamentos') renderLancamentos(root);
+  else if(currentTab==='despesas') renderTransactionScreen(root, 'despesas');
 }
 function destroyCharts(){
   activeCharts.forEach(c=>{ try{ c.destroy(); }catch(e){} });
@@ -739,7 +875,7 @@ const SCREENS = {
     title:'Devoluções', addLabel:'Nova devolução',
     emptyMsg:'Nenhuma devolução registrada ainda.',
     fields:[
-      {name:'period', label:'Mês', type:'month', required:true, default:()=>todayPeriod()},
+      {name:'date', label:'Data', type:'date', required:true, default:()=>todayStr()},
       {name:'client', label:'Cliente', type:'select', options:()=>state.clients, required:true, placeholder:'Selecione o cliente'},
       {name:'product', label:'Produto', type:'select', options:()=>state.products, required:true, placeholder:'Selecione o produto'},
       {name:'qty', label:'Quantidade devolvida', type:'number', step:'0.01', min:'0', required:true},
@@ -751,13 +887,13 @@ const SCREENS = {
       }
     },
     computeDerived(data){
-      const [y,m] = data.period.split('-').map(Number);
-      data.year=y; data.monthIndex=m-1;
+      const d = parseDateStr(data.date);
+      data.year = d.getFullYear(); data.monthIndex = d.getMonth(); data.day = d.getDate();
       data.qty = num(data.qty); data.unitPrice = num(data.unitPrice);
       data.total = round2(data.qty*data.unitPrice*-1);
     },
     rowGroupKey(r){ return monthLabel(r.monthIndex, r.year); },
-    rowRender(r){ return { l1:r.client, l2:`${r.product} · ${fmtQty(r.qty)} devolvido(s)`, amount:r.total, neg:true, swatch:'neg' }; },
+    rowRender(r){ return { l1:r.client, l2:`${r.product} · ${fmtQty(r.qty)} devolvido(s) · ${formatDateBR(r.date)}`, amount:r.total, neg:true, swatch:'neg' }; },
   },
   despesas: {
     key:'expenses', singular:'despesa', plural:'despesas', icon:'wallet',
@@ -770,7 +906,13 @@ const SCREENS = {
       {name:'note', label:'Observação (opcional)', type:'text', required:false},
       {name:'value', label:'Valor (R$)', type:'number', step:'0.01', min:'0', required:true},
     ],
-    onFieldChange(data, name){ if(name==='group'){ data.subgroup=''; } },
+    onFieldChange(data, name){
+      if(name==='group'){ data.subgroup=''; }
+      if(name==='subgroup' && data.group && data.subgroup && !data.value){
+        const sugg = suggestExpenseValue(data.group, data.subgroup);
+        if(sugg!=null) data.value = sugg;
+      }
+    },
     computeDerived(data){
       const [y,m] = data.period.split('-').map(Number);
       data.year=y; data.monthIndex=m-1;
@@ -784,22 +926,58 @@ const SCREENS = {
 const PAGE_SIZE = 60;
 let visibleCounts = {};
 
+let searchQuery = { lancamentos:'', despesas:'' };
+
 function renderTransactionScreen(root, screenKey){
   const cfg = SCREENS[screenKey];
-  const allRecords = state[cfg.key].slice().sort((a,b)=>{
+  root.innerHTML = `
+    <div class="view-head">
+      <h2>${esc(cfg.title)}</h2>
+      <p class="sub" id="txn-count-sub"></p>
+    </div>
+    <button class="fab-add" onclick="openTransactionForm('${screenKey}')">${ICONS.plus}${esc(cfg.addLabel)}</button>
+    ${state[cfg.key].length>0 ? `
+    <div class="search-box">
+      ${ICONS.search}
+      <input type="text" id="txn-search-input" placeholder="Buscar por categoria ou observação" value="${esc(searchQuery[screenKey]||'')}" oninput="onTxnSearch('${screenKey}', this.value)">
+      <button class="clear-btn" id="txn-search-clear" style="display:${searchQuery[screenKey]?'flex':'none'}" onclick="clearTxnSearch('${screenKey}')" aria-label="Limpar busca">${ICONS.x}</button>
+    </div>` : ''}
+    <div id="txn-list-container"></div>
+  `;
+  renderTxnList(screenKey);
+}
+
+function renderTxnList(screenKey){
+  const cfg = SCREENS[screenKey];
+  const container = document.getElementById('txn-list-container');
+  if(!container) return;
+  const q = (searchQuery[screenKey]||'').toLowerCase().trim();
+  let allRecords = state[cfg.key].slice().sort((a,b)=>{
     if(a.year!==b.year) return b.year-a.year;
     if(a.monthIndex!==b.monthIndex) return b.monthIndex-a.monthIndex;
     if((a.day||0)!==(b.day||0)) return (b.day||0)-(a.day||0);
     return 0;
   });
+  const total = allRecords.length;
+  if(q){
+    allRecords = allRecords.filter(r=>{
+      const rr = cfg.rowRender(r);
+      return (rr.l1+' '+rr.l2).toLowerCase().includes(q);
+    });
+  }
   if(visibleCounts[screenKey]==null) visibleCounts[screenKey] = PAGE_SIZE;
   const visibleCount = visibleCounts[screenKey];
   const records = allRecords.slice(0, visibleCount);
   const remaining = allRecords.length - records.length;
 
+  const subEl = document.getElementById('txn-count-sub');
+  if(subEl) subEl.textContent = `${total} ${total===1?cfg.singular:cfg.plural} registrada${total===1?'':'s'}`;
+
   let listHTML;
-  if(allRecords.length===0){
+  if(total===0){
     listHTML = `<div class="empty-state">${ICONS.inbox}<p>${esc(cfg.emptyMsg)}</p></div>`;
+  }else if(allRecords.length===0){
+    listHTML = `<div class="empty-state">${ICONS.inbox}<p>Nada encontrado para "${esc(searchQuery[screenKey])}".</p></div>`;
   }else{
     let lastGroup = null;
     const rows = [];
@@ -823,20 +1001,29 @@ function renderTransactionScreen(root, screenKey){
       listHTML += `<button class="btn btn-ghost btn-block" style="margin-top:12px;" onclick="loadMoreTransactions('${screenKey}')">Carregar mais (${remaining} restante${remaining===1?'':'s'})</button>`;
     }
   }
+  container.innerHTML = listHTML;
+}
 
-  root.innerHTML = `
-    <div class="view-head">
-      <h2>${esc(cfg.title)}</h2>
-      <p class="sub">${allRecords.length} ${allRecords.length===1?cfg.singular:cfg.plural} registrada${allRecords.length===1?'':'s'}</p>
-    </div>
-    <button class="fab-add" onclick="openTransactionForm('${screenKey}')">${ICONS.plus}${esc(cfg.addLabel)}</button>
-    ${listHTML}
-  `;
+function onTxnSearch(screenKey, value){
+  searchQuery[screenKey] = value;
+  visibleCounts[screenKey] = PAGE_SIZE;
+  renderTxnList(screenKey);
+  const clearBtn = document.getElementById('txn-search-clear');
+  if(clearBtn) clearBtn.style.display = value ? 'flex' : 'none';
+}
+function clearTxnSearch(screenKey){
+  searchQuery[screenKey] = '';
+  const input = document.getElementById('txn-search-input');
+  if(input) input.value = '';
+  visibleCounts[screenKey] = PAGE_SIZE;
+  renderTxnList(screenKey);
+  const clearBtn = document.getElementById('txn-search-clear');
+  if(clearBtn) clearBtn.style.display = 'none';
 }
 
 function loadMoreTransactions(screenKey){
   visibleCounts[screenKey] = (visibleCounts[screenKey]||PAGE_SIZE) + PAGE_SIZE;
-  renderCurrentView();
+  renderTxnList(screenKey);
 }
 
 let formState = {}; // dados do formulário atualmente aberto
@@ -868,18 +1055,34 @@ function buildTransactionFormHTML(screenKey){
   const cfg = SCREENS[screenKey];
   const isEdit = !!formEditId;
   const fieldsHTML = cfg.fields.map(f=>fieldHTML(f, formState)).join('');
+  const chips = (screenKey==='despesas' && !isEdit) ? recentExpenseChips(6) : [];
+  const chipsHTML = chips.length ? `
+    <p class="hint" style="margin:-2px 0 8px;">Toque para repetir uma despesa recente:</p>
+    <div class="chip-row">
+      ${chips.map((c,i)=>`<button type="button" class="chip" onclick="applyExpenseChip(${i})">${esc(c.subgroup)}</button>`).join('')}
+    </div>` : '';
   return `
     <div class="grabber"></div>
     <div class="sheet-head">
       <h3>${isEdit?'Editar':esc(cfg.addLabel)}</h3>
       <button onclick="closeSheet()" aria-label="Fechar">${ICONS.x}</button>
     </div>
+    ${chipsHTML}
     <form id="txn-form">${fieldsHTML}</form>
     <div class="form-actions">
       ${isEdit?`<button type="button" class="btn btn-danger" style="flex:0 0 auto;" onclick="deleteTransactionRecord('${screenKey}','${formEditId}')" aria-label="Excluir">${ICONS.trash}</button>`:''}
       <button type="button" class="btn btn-primary btn-block" onclick="submitTransactionForm('${screenKey}')">Salvar</button>
     </div>
   `;
+}
+function applyExpenseChip(idx){
+  const chip = recentExpenseChips(6)[idx];
+  if(!chip) return;
+  formState = Object.assign({}, formState, {group:chip.group, subgroup:chip.subgroup, value:chip.value});
+  const sheet = document.querySelector('.sheet');
+  const scrollPos = sheet ? sheet.scrollTop : 0;
+  openSheetInPlace(buildTransactionFormHTML('despesas'));
+  if(sheet){ const s2=document.querySelector('.sheet'); if(s2) s2.scrollTop = scrollPos; }
 }
 
 function fieldHTML(f, data){
@@ -981,6 +1184,293 @@ function deleteTransactionRecord(screenKey, id){
 }
 
 /* =========================================================================
+   LANÇAMENTOS — entregas e devoluções num só lugar. Em vez de um formulário
+   por produto, o toque em "Nova entrega"/"Devolução" abre um cliente e uma
+   lista de produtos com quantidade (a "cesta" daquele cliente naquele dia),
+   com sugestões preenchidas a partir do último lançamento igual — a pessoa
+   só confere e toca em Salvar.
+   ========================================================================= */
+function renderLancamentos(root){
+  const hasAny = state.sales.length + state.returns.length > 0;
+  root.innerHTML = `
+    <div class="view-head">
+      <h2>Lançamentos</h2>
+      <p class="sub">Entregas e devoluções por cliente</p>
+    </div>
+    <div class="quick-actions">
+      <button onclick="openMultiItemForm('entrega')">
+        <span class="qa-ic">${ICONS.box}</span><span>Nova entrega</span>
+      </button>
+      <button class="secondary" onclick="openMultiItemForm('devolucao')">
+        <span class="qa-ic">${ICONS.undo}</span><span>Devolução</span>
+      </button>
+    </div>
+    ${hasAny ? `
+    <div class="search-box">
+      ${ICONS.search}
+      <input type="text" id="lanc-search-input" placeholder="Buscar por cliente ou produto" value="${esc(searchQuery.lancamentos||'')}" oninput="onLancSearch(this.value)">
+      <button class="clear-btn" id="lanc-search-clear" style="display:${searchQuery.lancamentos?'flex':'none'}" onclick="clearLancSearch()" aria-label="Limpar busca">${ICONS.x}</button>
+    </div>` : ''}
+    <div id="lanc-list-container"></div>
+  `;
+  renderLancList();
+}
+
+function combinedLancamentos(){
+  return [
+    ...state.sales.map(r=>Object.assign({_kind:'entrega', _screenKey:'entregas'}, r)),
+    ...state.returns.map(r=>Object.assign({_kind:'devolucao', _screenKey:'devolucoes'}, r)),
+  ].sort((a,b)=>{
+    if(a.year!==b.year) return b.year-a.year;
+    if(a.monthIndex!==b.monthIndex) return b.monthIndex-a.monthIndex;
+    if((a.day||0)!==(b.day||0)) return (b.day||0)-(a.day||0);
+    return 0;
+  });
+}
+
+function renderLancList(){
+  const container = document.getElementById('lanc-list-container');
+  if(!container) return;
+  const q = (searchQuery.lancamentos||'').toLowerCase().trim();
+  const all = combinedLancamentos();
+  let filtered = all;
+  if(q){
+    filtered = all.filter(r=> r.client.toLowerCase().includes(q) || r.product.toLowerCase().includes(q));
+  }
+  if(visibleCounts.lancamentos==null) visibleCounts.lancamentos = PAGE_SIZE;
+  const visibleCount = visibleCounts.lancamentos;
+  const records = filtered.slice(0, visibleCount);
+  const remaining = filtered.length - records.length;
+
+  let listHTML;
+  if(all.length===0){
+    listHTML = `<div class="empty-state">${ICONS.inbox}<p>Nenhuma entrega ou devolução registrada ainda.<br>Toque em "Nova entrega" para começar.</p></div>`;
+  }else if(filtered.length===0){
+    listHTML = `<div class="empty-state">${ICONS.inbox}<p>Nada encontrado para "${esc(searchQuery.lancamentos)}".</p></div>`;
+  }else{
+    let lastGroup = null;
+    const rows = [];
+    for(const r of records){
+      const g = monthLabel(r.monthIndex, r.year);
+      if(g!==lastGroup){ rows.push(`<div class="list-group-label">${esc(g)}</div>`); lastGroup = g; }
+      const isEntrega = r._kind==='entrega';
+      const l2 = isEntrega
+        ? `${r.product} · ${fmtQty(r.qty)} · ${formatDateBR(r.date)}`
+        : `${r.product} · ${fmtQty(r.qty)} devolvido(s) · ${formatDateBR(r.date)}`;
+      rows.push(`
+        <div class="record mixed-record" onclick="openTransactionForm('${r._screenKey}','${r.id}')">
+          <div class="swatch ${isEntrega?'':'neg'}"></div>
+          <div class="body">
+            <div class="l1">${esc(r.client)}<span class="kind-tag ${r._kind}">${isEntrega?'Entrega':'Devolução'}</span></div>
+            <div class="l2">${esc(l2)}</div>
+          </div>
+          <div class="amt"><div class="n ${isEntrega?'':'neg'}">${fmtBRL(r.total)}</div></div>
+        </div>
+      `);
+    }
+    listHTML = `<div class="record-list">${rows.join('')}</div>`;
+    if(remaining>0){
+      listHTML += `<button class="btn btn-ghost btn-block" style="margin-top:12px;" onclick="loadMoreLanc()">Carregar mais (${remaining} restante${remaining===1?'':'s'})</button>`;
+    }
+  }
+  container.innerHTML = listHTML;
+}
+function onLancSearch(value){
+  searchQuery.lancamentos = value;
+  visibleCounts.lancamentos = PAGE_SIZE;
+  renderLancList();
+  const clearBtn = document.getElementById('lanc-search-clear');
+  if(clearBtn) clearBtn.style.display = value ? 'flex' : 'none';
+}
+function clearLancSearch(){
+  searchQuery.lancamentos = '';
+  const input = document.getElementById('lanc-search-input');
+  if(input) input.value = '';
+  visibleCounts.lancamentos = PAGE_SIZE;
+  renderLancList();
+  const clearBtn = document.getElementById('lanc-search-clear');
+  if(clearBtn) clearBtn.style.display = 'none';
+}
+function loadMoreLanc(){
+  visibleCounts.lancamentos = (visibleCounts.lancamentos||PAGE_SIZE) + PAGE_SIZE;
+  renderLancList();
+}
+function recentClientsList(n){
+  const all = [...state.sales, ...state.returns].sort((a,b)=>
+    (b.year-a.year) || (b.monthIndex-a.monthIndex) || ((b.day||0)-(a.day||0)));
+  const seen = new Set();
+  const out = [];
+  for(const r of all){
+    if(!state.clients.includes(r.client) || seen.has(r.client)) continue;
+    seen.add(r.client);
+    out.push(r.client);
+    if(out.length>=n) break;
+  }
+  return out;
+}
+
+/* ---- Formulário "cesta": data + cliente + lista de produtos com quantidade ---- */
+let multiItemDraft = null; // {mode:'entrega'|'devolucao', date, client, items:{produto: qtdString}}
+
+function openMultiItemForm(mode){
+  if(state.clients.length===0){ toast('Cadastre ao menos um cliente antes de lançar (toque na engrenagem).'); return; }
+  if(state.products.length===0){ toast('Cadastre ao menos um produto antes de lançar (toque na engrenagem).'); return; }
+  multiItemDraft = { mode, date: todayStr(), client: lastClientFor(mode) || '', items: {} };
+  if(multiItemDraft.client) applyQtySuggestions();
+  openSheet(buildMultiItemHTML());
+}
+function applyQtySuggestions(){
+  multiItemDraft.items = {};
+  state.products.forEach(p=>{
+    const sugg = suggestQty(multiItemDraft.client, p, multiItemDraft.mode);
+    if(sugg!=null && sugg>0) multiItemDraft.items[p] = String(sugg);
+  });
+}
+function onMultiItemClientChange(value){
+  multiItemDraft.client = value;
+  applyQtySuggestions();
+  openSheetInPlace(buildMultiItemHTML());
+}
+function buildMultiItemHTML(){
+  const isEntrega = multiItemDraft.mode==='entrega';
+  const title = isEntrega ? 'Nova entrega' : 'Nova devolução';
+  const verb = isEntrega ? 'entregou' : 'devolveu';
+  let rowsHTML = '';
+  let total = 0, count = 0;
+  const buildRow = (p)=>{
+    const pIdx = state.products.indexOf(p);
+    const price = getPrice(multiItemDraft.client, p);
+    const qtyVal = multiItemDraft.items[p] || '';
+    const qty = num(qtyVal);
+    if(qty>0){ total += qty*price; count++; }
+    return `
+      <div class="mi-row ${qty>0?'mi-has-qty':''}">
+        <div class="mi-name">
+          <span class="n">${esc(p)}</span>
+          <button type="button" class="mi-price ${price?'':'unset'}" onclick="editInlinePriceAt(${pIdx})">${price?fmtBRL(price)+' /un.':'toque para definir preço'}</button>
+        </div>
+        <input type="number" inputmode="decimal" step="0.01" min="0" class="mi-qty" data-pidx="${pIdx}" value="${esc(qtyVal)}" placeholder="0" oninput="onMultiItemQtyInput(this)">
+      </div>`;
+  };
+  if(multiItemDraft.client){
+    const {withPrice, withoutPrice} = sortProductsForClient(multiItemDraft.client);
+    rowsHTML += withPrice.map(buildRow).join('');
+    if(withoutPrice.length){
+      rowsHTML += `<div class="mi-divider-row">Outros produtos</div>`;
+      rowsHTML += withoutPrice.map(buildRow).join('');
+    }
+  }
+  const recent = !multiItemDraft.client ? recentClientsList(5) : [];
+  return `
+    <div class="grabber"></div>
+    <div class="sheet-head"><h3>${title}</h3><button onclick="closeMultiItemForm()" aria-label="Fechar">${ICONS.x}</button></div>
+    <div class="field-row">
+      <div class="field"><label>Data</label><input type="date" id="mi-date" value="${multiItemDraft.date}" onchange="multiItemDraft.date=this.value"></div>
+      <div class="field"><label>Cliente</label>
+        <select onchange="onMultiItemClientChange(this.value)">
+          <option value="" ${!multiItemDraft.client?'selected':''} disabled>Selecione</option>
+          ${state.clients.map(c=>`<option value="${esc(c)}" ${multiItemDraft.client===c?'selected':''}>${esc(c)}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    ${recent.length ? `
+      <p class="hint" style="margin:-4px 0 8px;">Clientes recentes:</p>
+      <div class="chip-row">
+        ${recent.map((c)=>{ const ci=state.clients.indexOf(c); return `<button type="button" class="chip" onclick="onMultiItemClientChange(state.clients[${ci}])">${esc(c)}</button>`; }).join('')}
+      </div>` : ''}
+    ${!multiItemDraft.client
+      ? `<p class="hint" style="padding:10px 0 4px;">Escolha o cliente para ver os produtos e lançar as quantidades.</p>`
+      : `
+        <div class="mi-list" id="mi-list">${rowsHTML}</div>
+        <div class="mi-total-bar">
+          <div><div class="lbl">Total ${isEntrega?'da entrega':'da devolução'}</div><div class="val" id="mi-total-value">${fmtBRL(total)}</div></div>
+          <div class="mi-count-badge" id="mi-count-badge">${count} ${count===1?'item':'itens'}</div>
+        </div>
+        <p class="hint" style="margin-bottom:8px;">Preencha só o que ${verb} hoje — o resto pode ficar em branco.</p>
+      `
+    }
+    <div class="form-actions">
+      <button class="btn btn-primary btn-block" ${!multiItemDraft.client?'disabled':''} onclick="submitMultiItemForm()">Salvar ${isEntrega?'entrega':'devolução'}</button>
+    </div>
+  `;
+}
+function onMultiItemQtyInput(inputEl){
+  const pIdx = parseInt(inputEl.dataset.pidx, 10);
+  const product = state.products[pIdx];
+  multiItemDraft.items[product] = inputEl.value;
+  const row = inputEl.closest('.mi-row');
+  if(row){ if(num(inputEl.value)>0) row.classList.add('mi-has-qty'); else row.classList.remove('mi-has-qty'); }
+  updateMultiItemTotal();
+}
+function updateMultiItemTotal(){
+  let total = 0, count = 0;
+  state.products.forEach(p=>{
+    const qty = num(multiItemDraft.items[p]);
+    if(qty>0){ total += qty*getPrice(multiItemDraft.client, p); count++; }
+  });
+  const valEl = document.getElementById('mi-total-value');
+  if(valEl) valEl.textContent = fmtBRL(total);
+  const badgeEl = document.getElementById('mi-count-badge');
+  if(badgeEl) badgeEl.textContent = `${count} ${count===1?'item':'itens'}`;
+}
+function editInlinePriceAt(pIdx){
+  const product = state.products[pIdx];
+  const client = multiItemDraft.client;
+  openSheetInPlace(`
+    <div class="grabber"></div>
+    <div class="sheet-head"><h3>Preço do produto</h3><button onclick="cancelMiPriceEdit()" aria-label="Fechar">${ICONS.x}</button></div>
+    <p class="hint" style="margin-bottom:10px;">Valor que <strong>${esc(client)}</strong> paga por unidade de <strong>${esc(product)}</strong>.</p>
+    <div class="field"><label>Valor (R$)</label><input type="number" inputmode="decimal" step="0.01" min="0" id="mi-price-input" value="${getPrice(client,product)||''}" placeholder="0,00"></div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="cancelMiPriceEdit()">Cancelar</button>
+      <button class="btn btn-primary btn-block" onclick="saveMiPrice(${pIdx})">Salvar preço</button>
+    </div>
+  `);
+}
+function saveMiPrice(pIdx){
+  const product = state.products[pIdx];
+  const val = document.getElementById('mi-price-input').value;
+  setPrice(multiItemDraft.client, product, val);
+  openSheetInPlace(buildMultiItemHTML());
+  toast('Preço atualizado.');
+}
+function cancelMiPriceEdit(){
+  openSheetInPlace(buildMultiItemHTML());
+}
+function closeMultiItemForm(){
+  multiItemDraft = null;
+  closeSheet();
+}
+function submitMultiItemForm(){
+  if(!multiItemDraft || !multiItemDraft.client){ toast('Selecione um cliente.'); return; }
+  const dateInput = document.getElementById('mi-date');
+  const dateVal = dateInput ? dateInput.value : multiItemDraft.date;
+  if(!dateVal){ toast('Selecione uma data.'); return; }
+  const mode = multiItemDraft.mode;
+  const isEntrega = mode==='entrega';
+  const client = multiItemDraft.client;
+  const entries = Object.entries(multiItemDraft.items).filter(([p,q])=>num(q)>0);
+  if(entries.length===0){ toast('Informe a quantidade de ao menos um produto.'); return; }
+  const targetArr = isEntrega ? state.sales : state.returns;
+  const d = parseDateStr(dateVal);
+  entries.forEach(([product, qtyStr])=>{
+    const qty = num(qtyStr);
+    const unitPrice = getPrice(client, product);
+    targetArr.push({
+      id: uid(), date:dateVal, client, product, qty, unitPrice,
+      year:d.getFullYear(), monthIndex:d.getMonth(), day:d.getDate(),
+      total: round2(qty*unitPrice*(isEntrega?1:-1)),
+    });
+  });
+  rememberLastClient(mode, client);
+  saveState();
+  closeSheet();
+  multiItemDraft = null;
+  renderCurrentView();
+  toast(`${entries.length} ${entries.length===1?'item lançado':'itens lançados'} para ${client}.`);
+}
+
+/* =========================================================================
    PAINEL (Dashboard) — indicadores e gráficos
    ========================================================================= */
 function renderPainel(root){
@@ -992,11 +1482,29 @@ function renderPainel(root){
   const dailyYear = now.getFullYear(), dailyMonth = now.getMonth();
   const daily = computeDailyTrend(dailyYear, dailyMonth);
   const hasDaily = daily.some(d=>d.entregue>0);
+  const neverUsed = state.sales.length===0 && state.returns.length===0 && state.expenses.length===0;
 
   root.innerHTML = `
     <div class="view-head">
       <h2>Painel</h2>
       <p class="sub">Visão geral da propriedade</p>
+    </div>
+    ${neverUsed ? `
+    <div class="card" style="background:linear-gradient(135deg,var(--forest),var(--forest-2));border:none;color:#fbf7ea;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">${ICONS.sparkle}<strong style="font-family:var(--font-display);font-size:16px;">Bem-vindo(a) ao Sítio Encantado</strong></div>
+      <p style="margin:0 0 12px;color:#d9e8dc;font-size:13.5px;">Comece registrando a primeira entrega do dia. Escolha o cliente e informe só as quantidades — o app calcula o resto sozinho.</p>
+      <button class="btn btn-gold btn-block" onclick="switchTab('lancamentos')">Lançar minha primeira entrega</button>
+    </div>` : ''}
+    <div class="quick-actions">
+      <button onclick="openMultiItemForm('entrega')">
+        <span class="qa-ic">${ICONS.box}</span><span>Nova entrega</span>
+      </button>
+      <button class="secondary" onclick="openMultiItemForm('devolucao')">
+        <span class="qa-ic">${ICONS.undo}</span><span>Devolução</span>
+      </button>
+      <button class="secondary" onclick="openTransactionForm('despesas')">
+        <span class="qa-ic">${ICONS.wallet}</span><span>Despesa</span>
+      </button>
     </div>
     <div class="filter-row">
       <select id="dashboard-year-select" onchange="dashboardYear=parseInt(this.value); renderCurrentView();">
