@@ -8,6 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b3d24'/%3E%3Cpath d='M6 18c7 0 12-5 12-12-7 0-12 5-12 12Z' fill='none' stroke='%23f3d488' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M6 18c0-4 2.5-7.5 7-9.5' fill='none' stroke='%23f3d488' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sítio Encantado">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0b3d24">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
 <style>
 :root{
@@ -193,6 +200,20 @@ a{color:inherit;}
 .stat-list .row:last-child{border-bottom:none;}
 .stat-list .row .k{font-size:13.5px;color:var(--ink-soft);}
 .stat-list .row .v{font-size:13.5px;font-weight:600;text-align:right;}
+.stat-list .row .v .delta-pos,.stat-list .row .v .delta-neg,.stat-list .row .v .delta-flat{
+  display:inline-block;margin-left:6px;font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;
+}
+.stat-list .row .v .delta-pos{background:#e3f3e6;color:var(--forest);}
+.stat-list .row .v .delta-neg{background:#fbe6e1;color:var(--brick);}
+.stat-list .row .v .delta-flat{background:var(--cream);color:var(--ink-faint);}
+:root[data-theme="dark"] .stat-list .row .v .delta-pos,
+:root:not([data-theme="light"]) .stat-list .row .v .delta-pos{background:#173627;color:#8fd9ab;}
+:root[data-theme="dark"] .stat-list .row .v .delta-neg,
+:root:not([data-theme="light"]) .stat-list .row .v .delta-neg{background:#3a1f1a;color:#f0a693;}
+@media (prefers-color-scheme:dark){
+  .stat-list .row .v .delta-pos{background:#173627;color:#8fd9ab;}
+  .stat-list .row .v .delta-neg{background:#3a1f1a;color:#f0a693;}
+}
 
 /* ---------- Buttons ---------- */
 .btn{
@@ -411,15 +432,20 @@ table.resumo td.zero{color:var(--ink-faint);}
 @media (prefers-color-scheme:dark){.mi-client-row button{color:var(--gold-light);}}
 
 .mi-list{border:1px solid var(--line);border-radius:var(--radius-m);background:var(--paper);overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px;}
-.mi-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);}
+.mi-head-row{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--cream);border-bottom:1px solid var(--line);}
+.mi-head-row .mi-name{flex:1;}
+.mi-head-row span{font-size:10px;font-weight:700;color:var(--ink-faint);text-transform:none;}
+.mi-head-row .mi-price-input,.mi-head-row .mi-qty{width:72px;flex:none;text-align:center;}
+.mi-row{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--line);}
 .mi-row:last-child{border-bottom:none;}
 .mi-row.mi-has-qty{background:rgba(63,150,19,.09);}
 .mi-row .mi-name{flex:1;min-width:0;}
-.mi-row .mi-name .n{font-size:13.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.mi-row .mi-price{font-size:11.5px;color:var(--ink-soft);background:none;border:none;padding:1px 0;cursor:pointer;text-align:left;display:block;}
-.mi-row .mi-price.unset{color:var(--gold);text-decoration:underline;text-decoration-style:dotted;}
-.mi-row .mi-qty{width:74px;flex:none;padding:9px 8px;border:1.5px solid var(--line);border-radius:8px;background:var(--cream);color:var(--ink);text-align:right;font-weight:600;}
-.mi-row .mi-qty.suggested{border-color:var(--gold);background:var(--gold-light);color:#4a3208;}
+.mi-row .mi-name .n{font-size:13px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mi-row .mi-price-input,.mi-row .mi-qty{
+  width:72px;flex:none;padding:8px 6px;border:1.5px solid var(--line);border-radius:8px;
+  background:var(--cream);color:var(--ink);text-align:center;font-weight:600;font-size:13.5px;
+}
+.mi-row .mi-price-input.unset{border-color:var(--gold);background:var(--gold-light);}
 .mi-divider-row{padding:7px 12px;font-size:10.5px;font-weight:700;color:var(--ink-faint);background:var(--cream);border-bottom:1px solid var(--line);}
 .mi-total-bar{
   display:flex;align-items:center;justify-content:space-between;
@@ -562,6 +588,12 @@ function fmtBRL(n){
 function fmtQty(n){ n=num(n); return n.toLocaleString('pt-BR',{maximumFractionDigits:2}); }
 function fmtPct(n){ if(n==null||isNaN(n)) return '—'; return (n*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%'; }
 function formatDateBR(dateStr){ if(!dateStr) return ''; const [y,m,d]=dateStr.split('-'); return `${d}/${m}/${y}`; }
+function fmtDaysAgo(dateObj){
+  const diffMs = Date.now() - dateObj.getTime();
+  const days = Math.max(0, Math.round(diffMs/86400000));
+  const dd = pad(dateObj.getDate()), mm = pad(dateObj.getMonth()+1);
+  return `há ${days} dia${days===1?'':'s'} (${dd}/${mm})`;
+}
 function monthLabel(monthIndex, year){ return `${MONTHS[monthIndex]}/${year}`; }
 
 function groupSum(pairs){
@@ -672,13 +704,52 @@ function computeKPIs(year){
   const bestClient = topEntries(clientTotals,1)[0] || null;
   const bestProduct = topEntries(productTotals,1)[0] || null;
   const biggestGroup = topEntries(groupTotals,1)[0] || null;
+  const ticketMedio = sales.length>0 ? round2(sum(sales,s=>s.total)/sales.length) : null;
+  const activeClients = new Set(sales.map(s=>s.client)).size;
 
   return {
     year, entregue, devolvido, receita, despesa, lucro, lucratividade, perda,
-    bestClient, bestProduct, biggestGroup,
+    bestClient, bestProduct, biggestGroup, ticketMedio, activeClients,
     clientTotals, productTotals, groupTotals, returnedQtyByProduct, subgroupTotals,
     hasAny: sales.length+returns.length+expenses.length > 0,
   };
+}
+
+function computeKPIsForMonth(year, monthIndex){
+  return computeMonthlyTrend(year)[monthIndex];
+}
+function pctDelta(curr, prev){
+  if(Math.abs(prev) < 1e-9) return curr>1e-9 ? null : 0;
+  return (curr-prev)/Math.abs(prev);
+}
+function monthOverMonthComparison(){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth();
+  const prevM = m===0 ? 11 : m-1;
+  const prevY = m===0 ? y-1 : y;
+  const current = computeKPIsForMonth(y, m);
+  const previous = computeKPIsForMonth(prevY, prevM);
+  return {
+    current, previous,
+    currentLabel: monthLabel(m,y), previousLabel: monthLabel(prevM,prevY),
+    receitaDelta: pctDelta(current.receita, previous.receita),
+    despesaDelta: pctDelta(current.despesa, previous.despesa),
+    lucroDelta: pctDelta(current.lucro, previous.lucro),
+    hasPrevious: previous.entregue!==0 || previous.devolvido!==0 || previous.receita!==0 || previous.despesa!==0,
+  };
+}
+function clientsWithoutRecentActivity(days){
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate()-days);
+  const lastByClient = {};
+  state.sales.forEach(s=>{
+    const d = parseDateStr(s.date);
+    if(!lastByClient[s.client] || d>lastByClient[s.client]) lastByClient[s.client] = d;
+  });
+  return state.clients
+    .filter(c=> lastByClient[c] && lastByClient[c] < cutoff)
+    .map(c=>({client:c, lastDate:lastByClient[c]}))
+    .sort((a,b)=>a.lastDate-b.lastDate);
 }
 
 function computeMonthlyTrend(year){
@@ -713,6 +784,12 @@ function computeResumo(year, monthIndex, client){
     if(!grid[s.day]) grid[s.day] = {};
     grid[s.day][s.product] = (grid[s.day][s.product]||0) + num(s.qty);
   }
+  const dailyTotals = [];
+  for(let d=1; d<=daysInMonth; d++){
+    const dayData = grid[d];
+    const qty = dayData ? sum(Object.values(dayData), v=>v) : 0;
+    dailyTotals.push({day:d, qty});
+  }
   const entregueByProduct = groupSum(sales.map(s=>({k:s.product, v:num(s.qty)})));
   const devolvidoByProduct = groupSum(returns.map(r=>({k:r.product, v:num(r.qty)})));
   const vendaByProduct = {};
@@ -730,7 +807,10 @@ function computeResumo(year, monthIndex, client){
       totalByProduct[p] = round2(venda*price);
     }
   }
-  return {daysInMonth, grid, entregueByProduct, devolvidoByProduct, vendaByProduct, unitPriceByProduct, totalByProduct, singleClient,
+  const productsActive = state.products
+    .filter(p=>(entregueByProduct[p]||0)>0 || (devolvidoByProduct[p]||0)>0)
+    .sort((a,b)=>(entregueByProduct[b]||0)-(entregueByProduct[a]||0));
+  return {daysInMonth, grid, dailyTotals, entregueByProduct, devolvidoByProduct, vendaByProduct, unitPriceByProduct, totalByProduct, singleClient, productsActive,
     totalEntregue: sum(Object.values(entregueByProduct),v=>v),
     totalDevolvido: sum(Object.values(devolvidoByProduct),v=>v),
     totalVenda: sum(Object.values(vendaByProduct),v=>v),
@@ -739,10 +819,12 @@ function computeResumo(year, monthIndex, client){
 }
 
 /* =========================================================================
-   "INTELIGÊNCIA" DE LANÇAMENTO — sugestões a partir do próprio histórico do
-   usuário (sem depender de nada externo): última quantidade entregue/devolvida
-   para aquele cliente+produto, último valor usado para aquela despesa, e o
-   último cliente usado em cada fluxo, para reduzir toques no dia a dia.
+   "INTELIGÊNCIA" DE LANÇAMENTO — atalhos a partir do próprio histórico do
+   usuário (sem depender de nada externo): último cliente usado em cada fluxo
+   (entrega/devolução), último valor usado para uma despesa recorrente, e o
+   preço já cadastrado por cliente/produto — tudo para reduzir toques no dia
+   a dia sem preencher quantidades por conta própria (a pessoa sempre parte
+   de campos zerados e decide o que entrar).
    ========================================================================= */
 function lastClientFor(mode){
   return (state.lastClients && state.lastClients[mode]) || null;
@@ -750,13 +832,6 @@ function lastClientFor(mode){
 function rememberLastClient(mode, client){
   if(!state.lastClients) state.lastClients = {};
   state.lastClients[mode] = client;
-}
-function suggestQty(client, product, mode){
-  const source = mode==='entrega' ? state.sales : state.returns;
-  const matches = source.filter(r=>r.client===client && r.product===product);
-  if(!matches.length) return null;
-  matches.sort((a,b)=> (b.year-a.year) || (b.monthIndex-a.monthIndex) || ((b.day||0)-(a.day||0)));
-  return matches[0].qty;
 }
 function sortProductsForClient(client){
   const withPrice = [];
@@ -1185,10 +1260,10 @@ function deleteTransactionRecord(screenKey, id){
 
 /* =========================================================================
    LANÇAMENTOS — entregas e devoluções num só lugar. Em vez de um formulário
-   por produto, o toque em "Nova entrega"/"Devolução" abre um cliente e uma
-   lista de produtos com quantidade (a "cesta" daquele cliente naquele dia),
-   com sugestões preenchidas a partir do último lançamento igual — a pessoa
-   só confere e toca em Salvar.
+   por produto, o toque em "Nova entrega"/"Devolução" escolhe o cliente e
+   mostra a lista de produtos dele com um campo de quantidade cada (a "cesta"
+   daquele cliente naquele dia, sempre em branco) — a pessoa preenche só o
+   que entregou/foi devolvido e toca em Salvar uma vez.
    ========================================================================= */
 function renderLancamentos(root){
   const hasAny = state.sales.length + state.returns.length > 0;
@@ -1316,19 +1391,11 @@ function openMultiItemForm(mode){
   if(state.clients.length===0){ toast('Cadastre ao menos um cliente antes de lançar (toque na engrenagem).'); return; }
   if(state.products.length===0){ toast('Cadastre ao menos um produto antes de lançar (toque na engrenagem).'); return; }
   multiItemDraft = { mode, date: todayStr(), client: lastClientFor(mode) || '', items: {} };
-  if(multiItemDraft.client) applyQtySuggestions();
   openSheet(buildMultiItemHTML());
-}
-function applyQtySuggestions(){
-  multiItemDraft.items = {};
-  state.products.forEach(p=>{
-    const sugg = suggestQty(multiItemDraft.client, p, multiItemDraft.mode);
-    if(sugg!=null && sugg>0) multiItemDraft.items[p] = String(sugg);
-  });
 }
 function onMultiItemClientChange(value){
   multiItemDraft.client = value;
-  applyQtySuggestions();
+  multiItemDraft.items = {};
   openSheetInPlace(buildMultiItemHTML());
 }
 function buildMultiItemHTML(){
@@ -1345,10 +1412,8 @@ function buildMultiItemHTML(){
     if(qty>0){ total += qty*price; count++; }
     return `
       <div class="mi-row ${qty>0?'mi-has-qty':''}">
-        <div class="mi-name">
-          <span class="n">${esc(p)}</span>
-          <button type="button" class="mi-price ${price?'':'unset'}" onclick="editInlinePriceAt(${pIdx})">${price?fmtBRL(price)+' /un.':'toque para definir preço'}</button>
-        </div>
+        <div class="mi-name"><span class="n">${esc(p)}</span></div>
+        <input type="number" inputmode="decimal" step="0.01" min="0" class="mi-price-input ${price?'':'unset'}" data-pidx="${pIdx}" value="${price||''}" placeholder="0,00" oninput="onMultiItemPriceInput(this)">
         <input type="number" inputmode="decimal" step="0.01" min="0" class="mi-qty" data-pidx="${pIdx}" value="${esc(qtyVal)}" placeholder="0" oninput="onMultiItemQtyInput(this)">
       </div>`;
   };
@@ -1381,12 +1446,15 @@ function buildMultiItemHTML(){
     ${!multiItemDraft.client
       ? `<p class="hint" style="padding:10px 0 4px;">Escolha o cliente para ver os produtos e lançar as quantidades.</p>`
       : `
-        <div class="mi-list" id="mi-list">${rowsHTML}</div>
+        <div class="mi-list" id="mi-list">
+          <div class="mi-head-row"><span class="mi-name">Produto</span><span class="mi-price-input">Preço R$</span><span class="mi-qty">Qtd.</span></div>
+          ${rowsHTML}
+        </div>
         <div class="mi-total-bar">
           <div><div class="lbl">Total ${isEntrega?'da entrega':'da devolução'}</div><div class="val" id="mi-total-value">${fmtBRL(total)}</div></div>
           <div class="mi-count-badge" id="mi-count-badge">${count} ${count===1?'item':'itens'}</div>
         </div>
-        <p class="hint" style="margin-bottom:8px;">Preencha só o que ${verb} hoje — o resto pode ficar em branco.</p>
+        <p class="hint" style="margin-bottom:8px;">Preencha só o que ${verb} hoje — o resto pode ficar em branco. O preço já vem preenchido quando cadastrado, mas pode ser corrigido a qualquer momento.</p>
       `
     }
     <div class="form-actions">
@@ -1402,6 +1470,14 @@ function onMultiItemQtyInput(inputEl){
   if(row){ if(num(inputEl.value)>0) row.classList.add('mi-has-qty'); else row.classList.remove('mi-has-qty'); }
   updateMultiItemTotal();
 }
+function onMultiItemPriceInput(inputEl){
+  const pIdx = parseInt(inputEl.dataset.pidx, 10);
+  const product = state.products[pIdx];
+  setPrice(multiItemDraft.client, product, inputEl.value);
+  if(num(inputEl.value)>0) inputEl.classList.remove('unset');
+  else inputEl.classList.add('unset');
+  updateMultiItemTotal();
+}
 function updateMultiItemTotal(){
   let total = 0, count = 0;
   state.products.forEach(p=>{
@@ -1412,30 +1488,6 @@ function updateMultiItemTotal(){
   if(valEl) valEl.textContent = fmtBRL(total);
   const badgeEl = document.getElementById('mi-count-badge');
   if(badgeEl) badgeEl.textContent = `${count} ${count===1?'item':'itens'}`;
-}
-function editInlinePriceAt(pIdx){
-  const product = state.products[pIdx];
-  const client = multiItemDraft.client;
-  openSheetInPlace(`
-    <div class="grabber"></div>
-    <div class="sheet-head"><h3>Preço do produto</h3><button onclick="cancelMiPriceEdit()" aria-label="Fechar">${ICONS.x}</button></div>
-    <p class="hint" style="margin-bottom:10px;">Valor que <strong>${esc(client)}</strong> paga por unidade de <strong>${esc(product)}</strong>.</p>
-    <div class="field"><label>Valor (R$)</label><input type="number" inputmode="decimal" step="0.01" min="0" id="mi-price-input" value="${getPrice(client,product)||''}" placeholder="0,00"></div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="cancelMiPriceEdit()">Cancelar</button>
-      <button class="btn btn-primary btn-block" onclick="saveMiPrice(${pIdx})">Salvar preço</button>
-    </div>
-  `);
-}
-function saveMiPrice(pIdx){
-  const product = state.products[pIdx];
-  const val = document.getElementById('mi-price-input').value;
-  setPrice(multiItemDraft.client, product, val);
-  openSheetInPlace(buildMultiItemHTML());
-  toast('Preço atualizado.');
-}
-function cancelMiPriceEdit(){
-  openSheetInPlace(buildMultiItemHTML());
 }
 function closeMultiItemForm(){
   multiItemDraft = null;
@@ -1473,6 +1525,18 @@ function submitMultiItemForm(){
 /* =========================================================================
    PAINEL (Dashboard) — indicadores e gráficos
    ========================================================================= */
+function fmtDeltaLabel(delta){
+  if(delta==null) return 'novo';
+  if(Math.abs(delta)<0.005) return 'estável';
+  const pct = Math.abs(delta*100).toLocaleString('pt-BR',{maximumFractionDigits:0});
+  return `${delta>0?'▲':'▼'} ${pct}%`;
+}
+function deltaClass(delta, higherIsBetter){
+  if(delta==null || Math.abs(delta)<0.005) return 'delta-flat';
+  const good = higherIsBetter ? delta>0 : delta<0;
+  return good ? 'delta-pos' : 'delta-neg';
+}
+
 function renderPainel(root){
   const years = yearsWithData();
   if(!years.includes(dashboardYear)) dashboardYear = years[0];
@@ -1483,6 +1547,9 @@ function renderPainel(root){
   const daily = computeDailyTrend(dailyYear, dailyMonth);
   const hasDaily = daily.some(d=>d.entregue>0);
   const neverUsed = state.sales.length===0 && state.returns.length===0 && state.expenses.length===0;
+  const chartsUnavailable = typeof Chart==='undefined';
+  const mom = monthOverMonthComparison();
+  const inactiveClients = clientsWithoutRecentActivity(30);
 
   root.innerHTML = `
     <div class="view-head">
@@ -1542,8 +1609,30 @@ function renderPainel(root){
       <div class="row"><span class="k">Melhor cliente</span><span class="v">${k.bestClient?esc(k.bestClient[0]):'—'}</span></div>
       <div class="row"><span class="k">Melhor produto</span><span class="v">${k.bestProduct?esc(k.bestProduct[0]):'—'}</span></div>
       <div class="row"><span class="k">Maior categoria de despesa</span><span class="v">${k.biggestGroup?esc(k.biggestGroup[0]):'—'}</span></div>
+      <div class="row"><span class="k">Ticket médio por entrega</span><span class="v">${k.ticketMedio!=null?fmtBRL(k.ticketMedio):'—'}</span></div>
+      <div class="row"><span class="k">Clientes atendidos no ano</span><span class="v">${k.activeClients} de ${state.clients.length}</span></div>
     </div>
 
+    <div class="section-title">${esc(mom.currentLabel)} vs. ${esc(mom.previousLabel)}</div>
+    ${!mom.hasPrevious ? `
+    <div class="card"><p class="hint" style="margin:0;">Ainda não há dados de ${esc(mom.previousLabel)} para comparar.</p></div>` : `
+    <div class="stat-list" style="margin-bottom:20px;">
+      <div class="row"><span class="k">Receita</span><span class="v">${fmtBRL(mom.current.receita)} <span class="${deltaClass(mom.receitaDelta,true)}">${fmtDeltaLabel(mom.receitaDelta)}</span></span></div>
+      <div class="row"><span class="k">Despesa</span><span class="v">${fmtBRL(mom.current.despesa)} <span class="${deltaClass(mom.despesaDelta,false)}">${fmtDeltaLabel(mom.despesaDelta)}</span></span></div>
+      <div class="row"><span class="k">Lucro/Prejuízo</span><span class="v">${fmtBRL(mom.current.lucro)} <span class="${deltaClass(mom.lucroDelta,true)}">${fmtDeltaLabel(mom.lucroDelta)}</span></span></div>
+    </div>`}
+
+    ${inactiveClients.length ? `
+    <div class="section-title">Clientes sem entrega há 30+ dias</div>
+    <div class="stat-list" style="margin-bottom:20px;">
+      ${inactiveClients.map(ic=>`<div class="row"><span class="k">${esc(ic.client)}</span><span class="v">${fmtDaysAgo(ic.lastDate)}</span></div>`).join('')}
+    </div>` : ''}
+
+    ${chartsUnavailable ? `
+    <div class="card" style="border-color:var(--gold);">
+      <strong style="font-size:13.5px;">Gráficos indisponíveis no momento</strong>
+      <p class="hint" style="margin:4px 0 0;">Os gráficos precisam de conexão com a internet (mesmo estando salvos no seu celular, eles usam uma biblioteca carregada da web na primeira vez). Verifique sua conexão e reabra o app. Os números e listas abaixo continuam funcionando normalmente.</p>
+    </div>` : ''}
     <div class="section-title">Entregue × Devolvido</div>
     <div class="chart-card">
       <h3>Quantidade por mês</h3>
@@ -1612,91 +1701,98 @@ function chartTextColor(){
 function chartGridColor(){
   return getComputedStyle(document.body).getPropertyValue('--line').trim() || '#e8e0cb';
 }
+function safeChart(canvasId, config){
+  const ctx = document.getElementById(canvasId);
+  if(!ctx) return;
+  try{
+    activeCharts.push(new Chart(ctx, config));
+  }catch(e){
+    console.error('Falha ao criar gráfico', canvasId, e);
+    const wrap = ctx.closest ? ctx.closest('.chart-wrap') : null;
+    if(wrap) wrap.innerHTML = `<div class="chart-empty">Não foi possível desenhar este gráfico.</div>`;
+  }
+}
 
 function buildDashboardCharts(trend, daily, hasDaily, k){
   if(typeof Chart==='undefined') return;
-  Chart.defaults.font = baseChartFont();
-  Chart.defaults.color = chartTextColor();
+  const font = baseChartFont();
 
   if(trend.some(t=>t.entregue||t.devolvido)){
-    const ctx = document.getElementById('chart-ed');
-    if(ctx) activeCharts.push(new Chart(ctx, {
+    safeChart('chart-ed', {
       type:'line',
       data:{ labels: MONTHS_SHORT, datasets:[
         {label:'Entregue', data:trend.map(t=>t.entregue), borderColor:CHART_COLORS[0], backgroundColor:CHART_COLORS[0]+'22', tension:.3, fill:true, pointRadius:2},
         {label:'Devolvido', data:trend.map(t=>t.devolvido), borderColor:CHART_COLORS[4], backgroundColor:CHART_COLORS[4]+'22', tension:.3, fill:true, pointRadius:2},
       ]},
-      options: chartOptsLine(),
-    }));
+      options: chartOptsLine(false, font),
+    });
   }
   if(trend.some(t=>t.receita||t.despesa)){
-    const ctx = document.getElementById('chart-rd');
-    if(ctx) activeCharts.push(new Chart(ctx, {
+    safeChart('chart-rd', {
       type:'bar',
       data:{ labels: MONTHS_SHORT, datasets:[
         {label:'Receita', data:trend.map(t=>round2(t.receita)), backgroundColor:CHART_COLORS[0], borderRadius:4, maxBarThickness:16},
         {label:'Despesa', data:trend.map(t=>round2(t.despesa)), backgroundColor:CHART_COLORS[4], borderRadius:4, maxBarThickness:16},
       ]},
-      options: chartOptsLine(true),
-    }));
+      options: chartOptsLine(true, font),
+    });
   }
   if(hasDaily){
-    const ctx = document.getElementById('chart-daily');
-    if(ctx) activeCharts.push(new Chart(ctx, {
+    safeChart('chart-daily', {
       type:'line',
       data:{ labels: daily.map(d=>d.day), datasets:[
         {label:'Entregue', data:daily.map(d=>d.entregue), borderColor:CHART_COLORS[1], backgroundColor:CHART_COLORS[1]+'22', tension:.25, fill:true, pointRadius:1.5},
       ]},
-      options: chartOptsLine(),
-    }));
+      options: chartOptsLine(false, font),
+    });
   }
-  makeDoughnut('chart-clients', topEntries(k.clientTotals,5));
-  makeDoughnut('chart-products', topEntries(k.productTotals,5));
-  makeDoughnut('chart-returned', topEntries(k.returnedQtyByProduct,5));
-  makeDoughnut('chart-subexp', topEntries(k.subgroupTotals,5));
+  makeDoughnut('chart-clients', topEntries(k.clientTotals,5), font);
+  makeDoughnut('chart-products', topEntries(k.productTotals,5), font);
+  makeDoughnut('chart-returned', topEntries(k.returnedQtyByProduct,5), font);
+  makeDoughnut('chart-subexp', topEntries(k.subgroupTotals,5), font);
 
   const groupData = topEntries(k.groupTotals);
   if(groupData.length){
-    const ctx = document.getElementById('chart-groups');
-    if(ctx) activeCharts.push(new Chart(ctx, {
+    safeChart('chart-groups', {
       type:'bar',
       data:{ labels: groupData.map(([g])=>g), datasets:[
         {data: groupData.map(([,v])=>round2(v)), backgroundColor:CHART_COLORS[2], borderRadius:4},
       ]},
       options: {
         indexAxis:'y', responsive:true, maintainAspectRatio:false,
-        plugins:{legend:{display:false}, tooltip:{callbacks:{label:(c)=>fmtBRL(c.raw)}}},
-        scales:{ x:{ticks:{color:chartTextColor()}, grid:{color:chartGridColor()}}, y:{ticks:{color:chartTextColor(), autoSkip:false, font:{size:10}}, grid:{display:false}} }
+        font, plugins:{legend:{display:false}, tooltip:{callbacks:{label:(c)=>fmtBRL(c.raw)}}},
+        scales:{ x:{ticks:{color:chartTextColor(), font}, grid:{color:chartGridColor()}}, y:{ticks:{color:chartTextColor(), font:Object.assign({},font,{size:10}), autoSkip:false}, grid:{display:false}} }
       }
-    }));
+    });
   }
 }
-function chartOptsLine(isCurrency){
+function chartOptsLine(isCurrency, font){
+  font = font || baseChartFont();
   return {
     responsive:true, maintainAspectRatio:false,
     interaction:{mode:'index', intersect:false},
+    font,
     plugins:{
-      legend:{display:true, position:'bottom', labels:{boxWidth:10, boxHeight:10, usePointStyle:true, padding:12}},
+      legend:{display:true, position:'bottom', labels:{boxWidth:10, boxHeight:10, usePointStyle:true, padding:12, font}},
       tooltip:{callbacks:{label:(c)=> `${c.dataset.label}: ${isCurrency?fmtBRL(c.raw):fmtQty(c.raw)}`}},
     },
     scales:{
-      x:{ticks:{color:chartTextColor()}, grid:{display:false}},
-      y:{ticks:{color:chartTextColor(), callback:(v)=>isCurrency?fmtBRL(v):fmtQty(v)}, grid:{color:chartGridColor()}},
+      x:{ticks:{color:chartTextColor(), font}, grid:{display:false}},
+      y:{ticks:{color:chartTextColor(), font, callback:(v)=>isCurrency?fmtBRL(v):fmtQty(v)}, grid:{color:chartGridColor()}},
     }
   };
 }
-function makeDoughnut(canvasId, entries){
+function makeDoughnut(canvasId, entries, font){
   if(!entries.length) return;
-  const ctx = document.getElementById(canvasId);
-  if(!ctx) return;
-  activeCharts.push(new Chart(ctx, {
+  font = font || baseChartFont();
+  safeChart(canvasId, {
     type:'doughnut',
     data:{ labels: entries.map(([k])=>k), datasets:[{ data: entries.map(([,v])=>round2(Math.abs(v))), backgroundColor:CHART_COLORS, borderWidth:2, borderColor: getComputedStyle(document.body).getPropertyValue('--paper')||'#fff' }] },
     options:{
-      responsive:true, maintainAspectRatio:false, cutout:'62%',
-      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10, usePointStyle:true, padding:10, font:{size:10.5}, color:chartTextColor()}} }
+      responsive:true, maintainAspectRatio:false, cutout:'62%', font,
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10, usePointStyle:true, padding:10, font:Object.assign({},font,{size:10.5}), color:chartTextColor()}} }
     }
-  }));
+  });
 }
 
 /* =========================================================================
@@ -1707,16 +1803,30 @@ function renderResumo(root){
   if(!years.includes(resumoFilter.year)) resumoFilter.year = years[0];
   const r = computeResumo(resumoFilter.year, resumoFilter.monthIndex, resumoFilter.client);
   const products = state.products;
+  const hasActivity = r.totalEntregue>0 || r.totalDevolvido>0;
+  const chartsUnavailable = typeof Chart==='undefined';
 
   const yearOpts = years.map(y=>`<option value="${y}" ${y===resumoFilter.year?'selected':''}>${y}</option>`).join('');
   const monthOpts = MONTHS.map((m,i)=>`<option value="${i}" ${i===resumoFilter.monthIndex?'selected':''}>${m}</option>`).join('');
   const clientOpts = `<option value="TODOS" ${resumoFilter.client==='TODOS'?'selected':''}>Todos os clientes</option>` +
     state.clients.map(c=>`<option value="${esc(c)}" ${resumoFilter.client===c?'selected':''}>${esc(c)}</option>`).join('');
 
-  let tableHTML;
-  if(products.length===0){
-    tableHTML = `<div class="empty-state">${ICONS.inbox}<p>Cadastre produtos para ver o resumo.</p></div>`;
+  let productListHTML;
+  if(r.productsActive.length===0){
+    productListHTML = `<div class="empty-state">${ICONS.inbox}<p>Nenhuma entrega ou devolução neste período.</p></div>`;
   }else{
+    productListHTML = `<div class="stat-list">` + r.productsActive.map(p=>{
+      const ent = r.entregueByProduct[p]||0;
+      const dev = r.devolvidoByProduct[p]||0;
+      const venda = r.vendaByProduct[p]||0;
+      const parts = [`${fmtQty(ent)} entregue${dev>0?` · ${fmtQty(dev)} devolvido`:''}`];
+      if(r.singleClient) parts.push(fmtBRL(r.totalByProduct[p]||0));
+      return `<div class="row"><span class="k">${esc(p)}</span><span class="v">${parts.join(' · ')}</span></div>`;
+    }).join('') + `</div>`;
+  }
+
+  let detailTableHTML = '';
+  if(products.length>0){
     const dayRows = [];
     for(let d=1; d<=r.daysInMonth; d++){
       const dayData = r.grid[d];
@@ -1730,37 +1840,26 @@ function renderResumo(root){
     const bodyRows = dayRows.length ? dayRows.join('') : `<tr><td colspan="${products.length+1}" style="text-align:center;color:var(--ink-faint);">Nenhuma entrega neste período</td></tr>`;
     const entregueRow = `<tr class="total-row"><td>Entregue</td>${products.map(p=>`<td>${fmtQty(r.entregueByProduct[p]||0)}</td>`).join('')}</tr>`;
     const devolvidoRow = `<tr class="total-row"><td>Devolvido</td>${products.map(p=>`<td>${fmtQty(r.devolvidoByProduct[p]||0)}</td>`).join('')}</tr>`;
-    const vendaRow = `<tr class="total-row"><td>Venda líquida</td>${products.map(p=>`<td>${fmtQty(r.vendaByProduct[p]||0)}</td>`).join('')}</tr>`;
     const priceRow = r.singleClient ? `<tr class="total-row"><td>Valor unit.</td>${products.map(p=>`<td>${fmtBRL(r.unitPriceByProduct[p]||0)}</td>`).join('')}</tr>` : '';
     const totalRow = r.singleClient ? `<tr class="total-row"><td>Total (R$)</td>${products.map(p=>`<td>${fmtBRL(r.totalByProduct[p]||0)}</td>`).join('')}</tr>` : '';
-
-    tableHTML = `
-      <div class="grid-scroll">
-        <table class="resumo">
-          <thead><tr><th>Dia</th>${products.map(p=>`<th>${esc(p)}</th>`).join('')}</tr></thead>
-          <tbody>
-            ${bodyRows}
-            ${entregueRow}
-            ${devolvidoRow}
-            ${vendaRow}
-            ${priceRow}
-            ${totalRow}
-          </tbody>
-        </table>
-      </div>`;
+    detailTableHTML = `
+      <details class="accordion" style="margin-top:4px;">
+        <summary><span>Ver tabela detalhada por dia</span><span class="chev">${ICONS.chev}</span></summary>
+        <div class="acc-body">
+          <div class="grid-scroll">
+            <table class="resumo">
+              <thead><tr><th>Dia</th>${products.map(p=>`<th>${esc(p)}</th>`).join('')}</tr></thead>
+              <tbody>${bodyRows}${entregueRow}${devolvidoRow}${priceRow}${totalRow}</tbody>
+            </table>
+          </div>
+        </div>
+      </details>`;
   }
-
-  const summaryCards = `
-    <div class="kpi-grid" style="margin-top:14px;">
-      <div class="kpi"><div class="kpi-label">Entregue no mês</div><div class="kpi-value">${fmtQty(r.totalEntregue)}</div></div>
-      <div class="kpi"><div class="kpi-label">Devolvido no mês</div><div class="kpi-value">${fmtQty(r.totalDevolvido)}</div></div>
-      ${r.singleClient ? `<div class="kpi wide hero"><div class="kpi-label">Total (R$) — ${esc(resumoFilter.client)}</div><div class="kpi-value">${fmtBRL(r.totalRS)}</div></div>` : `<div class="kpi wide"><div class="kpi-note">Selecione um cliente específico para ver valores em R$.</div></div>`}
-    </div>`;
 
   root.innerHTML = `
     <div class="view-head">
       <h2>Resumo</h2>
-      <p class="sub">Entregas por dia, filtradas por cliente e mês</p>
+      <p class="sub">Entregas e devoluções por cliente e mês</p>
     </div>
     <div class="filter-row">
       <select onchange="resumoFilter.year=parseInt(this.value); renderCurrentView();">${yearOpts}</select>
@@ -1769,9 +1868,47 @@ function renderResumo(root){
     <div class="filter-row">
       <select onchange="resumoFilter.client=this.value; renderCurrentView();">${clientOpts}</select>
     </div>
-    ${tableHTML}
-    ${summaryCards}
+
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">Entregue</div><div class="kpi-value">${fmtQty(r.totalEntregue)}</div></div>
+      <div class="kpi"><div class="kpi-label">Devolvido</div><div class="kpi-value">${fmtQty(r.totalDevolvido)}</div></div>
+      ${r.singleClient
+        ? `<div class="kpi hero wide"><div class="kpi-label">Total (R$) — ${esc(resumoFilter.client)}</div><div class="kpi-value">${fmtBRL(r.totalRS)}</div><div class="kpi-note">${fmtQty(r.totalVenda)} unidades vendidas (entregue − devolvido)</div></div>`
+        : `<div class="kpi wide"><div class="kpi-label">Venda líquida</div><div class="kpi-value">${fmtQty(r.totalVenda)}</div><div class="kpi-note">Selecione um cliente específico para ver o valor em R$</div></div>`}
+    </div>
+
+    ${chartsUnavailable ? `
+    <div class="card" style="border-color:var(--gold);">
+      <p class="hint" style="margin:0;">Gráfico indisponível sem conexão com a internet — as listas abaixo continuam completas.</p>
+    </div>` : ''}
+    <div class="chart-card">
+      <h3>Entregas por dia</h3>
+      <p class="chart-sub">${MONTHS[resumoFilter.monthIndex]}/${resumoFilter.year}${r.singleClient?' · '+esc(resumoFilter.client):''}</p>
+      <div class="chart-wrap h180">${hasActivity && !chartsUnavailable ? '<canvas id="chart-resumo-daily"></canvas>' : (hasActivity ? emptyChartHTML() : `<div class="chart-empty">Sem entregas neste período</div>`)}</div>
+    </div>
+
+    <div class="section-title">Por produto</div>
+    ${productListHTML}
+
+    ${detailTableHTML}
   `;
+
+  if(hasActivity && !chartsUnavailable){
+    safeChart('chart-resumo-daily', {
+      type:'bar',
+      data:{ labels: r.dailyTotals.map(d=>d.day), datasets:[
+        {data: r.dailyTotals.map(d=>d.qty), backgroundColor:CHART_COLORS[0], borderRadius:3, maxBarThickness:14},
+      ]},
+      options:{
+        responsive:true, maintainAspectRatio:false, font:baseChartFont(),
+        plugins:{ legend:{display:false}, tooltip:{callbacks:{label:(c)=>fmtQty(c.raw)+' unidades'}} },
+        scales:{
+          x:{ticks:{color:chartTextColor(), font:baseChartFont(), maxRotation:0, autoSkip:true, autoSkipPadding:8}, grid:{display:false}},
+          y:{ticks:{color:chartTextColor(), font:baseChartFont(), callback:(v)=>fmtQty(v)}, grid:{color:chartGridColor()}},
+        }
+      }
+    });
+  }
 }
 
 /* =========================================================================
